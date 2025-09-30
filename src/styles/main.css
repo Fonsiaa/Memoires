@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.Wrapper {
+  position: relative;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background-color: rgba(2, 191, 2, 0.197);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Wrapper .profile-image {
+  position: absolute;
+}
+.Wrapper .profile-image img {
+  width: 350px;
+  height: 350px;
+  background-size: cover;
+  border-radius: 50%;
+}
+.Wrapper text {
+  color: black;
+  font-size: 42px;
+}
+
+nav {
+  background-color: rgb(21, 68, 109);
+  display: flex;
+}
+nav a {
+  color: bisque;
+  text-align: center;
+}/*# sourceMappingURL=main.css.map */
