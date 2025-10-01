@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { AuthForm } from "./Webpage/AuthForm";
 import { Dashboard } from "./Webpage/Dashboard";
-import { Toast } from "./Webpage/UI";
+import { Toast, Button } from "./Webpage/UI";
 
 function App() {
     const [user, setUser] = useState(null);
@@ -100,15 +100,22 @@ const handleDeleteImage = (imageId) => {
 
 return (
     <div className="app-container">
-    {!user ? (
-        <AuthForm handleLogin={handleLogin} handleSignUp={handleSignUp} showToast={showToast} />
-    ) : (
-        <Dashboard
+    {user ? (
+        <>
+            <Button onClick={handleLogout} style={{ position: "absolute", top: 20, right: 20 }}> Logout</Button>
+
+            <Dashboard
             user={user}
             uploadedImages={uploadedImages}
             handleUpload={handleUpload}
             handleDeleteImage={handleDeleteImage}
-        />
+            />
+        </>
+    ) : (
+        <AuthForm 
+        handleLogin={handleLogin} 
+        handleSignUp={handleSignUp} 
+        showToast={showToast} />
     )}
         <Toast message={toast.message} type={toast.type} onClose={handleToastClose} />
     </div>
