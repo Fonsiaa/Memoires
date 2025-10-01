@@ -83,8 +83,8 @@ return (
         <Card title={isLogin ? "Welcome back!" : "Create an Account"}>
             <form onSubmit={handleSubmit}>
 
+            {/* Toggle between Login and Sign Up */}
             {!isLogin && (
-                {/* Name Input Field */}
                 <Input
                     label="Full Name"
                     id="name"
@@ -126,3 +126,21 @@ return (
     </div>
 );
 
+const Dashboard = ({ user, uploadedImages, handleUpload, DeleteImages, setCurrentPage}) => {
+
+    const FileSize = (bytes) => {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    };
+
+    return (
+        <div>
+            <div className="dashboard-header">
+                <h1>Hello, {user.name}</h1>
+            </div>
+        </div>
+    );
+}
