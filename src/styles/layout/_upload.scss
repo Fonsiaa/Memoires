@@ -19,7 +19,7 @@ $width-container: 1200px;
 
 html {
   height: 100%;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
 }
 
@@ -71,7 +71,7 @@ body {
 
   // Nested pseudo-element
   &:before {
-    content: "";
+    content: '';
     display: block;
     padding-bottom: 150%;
     width: 100%;
