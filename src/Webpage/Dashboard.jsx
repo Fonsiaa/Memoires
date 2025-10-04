@@ -1,6 +1,6 @@
-import React from 'react';
 import { Upload, Image, Trash2 } from 'lucide-react';
 import { Button, Card } from './UI';
+import '../styles/main.scss';
 
 export function Dashboard({ user, uploadedImages, handleUpload, handleDeleteImage }) {
 const formatFileSize = (bytes) => {
@@ -30,15 +30,15 @@ return (
 
     <Card title={`My Uploads (${uploadedImages.length})`}>
         {uploadedImages.length === 0 ? (
-        <div style={{ textAlign: "center", padding: "2.5rem", color: "#6b7280" }}>
-            <Image size={48} style={{ display: "block", margin: "0 auto 1rem" }} />
+        <div>
+            <Image size={48} />
             <p>No images uploaded yet.</p>
             <p>Use the 'Upload New Image' button to get started.</p>
         </div>
         ) : (
             <div className="image-grid">
                 {uploadedImages.map((image) => (
-                <div key={image.id} className="image-item" style={{ position: "relative" }}>
+                <div key={image.id} className="image-item">
                 <img
                     src={image.url}
                     alt={image.name}
@@ -49,24 +49,9 @@ return (
                     }}
                 />
                 <div className="image-item-info">
-                <p
-                    style={{
-                        fontSize: "0.875rem",
-                        fontWeight: 600,
-                        color: "#1f2937",
-                        overflow: "hidden",
-                        whiteSpace: "nowrap",
-                        textOverflow: "ellipsis",}}
-                    title={image.name}>
-                        {image.name}
-                    </p>
-
-                    <p style={{ fontSize: "0.75rem", color: "#6b7280", marginTop: "0.25rem" }}>
-                        Size: {formatFileSize(image.size)}
-                    </p>
-                    <p style={{ fontSize: "0.75rem", color: "#6b7280" }}>
-                        Uploaded: {new Date(image.uploadedAt).toLocaleDateString()}
-                    </p>
+                    <p title={image.name}> {image.name}</p>
+                    <p> Size: {formatFileSize(image.size)}</p>
+                    <p> Uploaded: {new Date(image.uploadedAt).toLocaleDateString()}</p>
                 </div>
 
                 <Button
