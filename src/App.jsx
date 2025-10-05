@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { AuthForm } from "./Webpage/AuthForm";
 import { Dashboard } from "./Webpage/Dashboard";
-import { Toast, Button } from "./Webpage/UI";
+import { Toast, Button } from "./parts/UI";
 
 function App() {
     const [user, setUser] = useState(null);

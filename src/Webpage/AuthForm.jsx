@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LogIn, UserPlus } from 'lucide-react';
-import { Input, Button, Card } from './UI';
+import { Input, Button, Card } from '../parts/UI';
+import '../styles/main.css'
 
 export function AuthForm({ handleLogin, handleSignUp, showToast }) {
     const [isLogin, setIsLogin] = useState(true);

@@ -1,0 +1,145 @@
+@import '../variables.scss';
+
+.card {
+    background-color: var(--color-surface);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    &-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    }
+}
+
+.input-group {
+    margin-bottom: 1rem;
+
+    .input-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #4b5563;
+    margin-bottom: 0.25rem;
+    }
+
+    .input-field {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: all 0.15s ease-in-out;
+
+    &:focus {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+        border-color: var(--color-primary);
+        }
+    }
+}
+
+.button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &.primary {
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+
+    &:hover:not(:disabled) {
+        background-color: var(--color-secondary);
+    }
+
+    &:disabled {
+        background-color: #93c5fd;
+        cursor: not-allowed;
+        }
+    }
+
+    &.outline {
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+
+    &:hover:not(:disabled) {
+        background-color: #eff6ff;
+        border-color: var(--color-secondary);
+        }
+    }
+
+    &.ghost {
+    color: #4b5563;
+    box-shadow: none;
+    background-color: transparent;
+
+    &:hover:not(:disabled) {
+        background-color: #f3f4f6;
+        }
+    }
+
+    &.danger {
+    background-color: var(--color-danger);
+    color: var(--color-surface);
+
+    &:hover:not(:disabled) {
+        background-color: #ef4444;
+    }
+
+    &:disabled {
+        background-color: #fca5a5;
+        cursor: not-allowed;
+        }
+    }
+}
+
+// Toast Styles
+.toast-container {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 50;
+
+    .toast-message {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow:
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: 24rem;
+    color: var(--color-surface);
+
+    &.toast-error {
+        background-color: #ef4444;
+    }
+
+    &.toast-success {
+        background-color: #10b981;
+    }
+
+    .toast-close {
+        padding: 0.25rem;
+        border-radius: 9999px;
+        transition: background-color 0.15s;
+
+        &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+            }
+        }
+    }
+}
