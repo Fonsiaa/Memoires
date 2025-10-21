@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import userRoutes from './routes/userRoutes.js';
+import users from './routes/users.js';
 dotenv.config();
 
 
@@ -12,7 +12,7 @@ const port = 3000;
 app.use(cors());
 
 app.use(express.json());
-app.use('/api/user', userRoutes)
+app.use('/api/user', users)
 
 const dbURI = process.env.DB_URI;
 // const dbURI = "mongodb://localhost:27017"
