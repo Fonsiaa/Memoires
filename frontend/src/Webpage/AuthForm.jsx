@@ -3,24 +3,27 @@ import { LogIn, UserPlus } from 'lucide-react';
 import { Input, Button, Card } from '../parts/UI';
 import '../styles/main.css';
 
-export function AuthForm({ showToast }) {
+export function AuthForm({ setUser, showToast }) {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
 
     const handleLogin = async (email, password) => {
-        try {
-            const res = await fetch('http://localhost:3000/api/user/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password }),
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.message);
-            showToast(`Welcome back, ${data.user.name}!`);
-        } catch (err) {
-            showToast(err.message);
+    try {
+    const res = await fetch("http://localhost:3000/api/user/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Login failed");
+
+        localStorage.setItem("currentUser", JSON.stringify(data.user));
+        setUser(data.user);
+        showToast(`Welcome back, ${data.user.name}!`);
+    } catch (err) {
+        showToast(err.message, "error");
         }
     };
 
@@ -32,11 +35,14 @@ export function AuthForm({ showToast }) {
                 body: JSON.stringify({ name, email, password }),
             });
             const data = await res.json();
-            if (!res.ok) throw new Error(data.message);
+            if (!res.ok) throw new Error(data.error || "Signup failed");
+
+            localStorage.setItem("currentUser", JSON.stringify(data));
+            setUser(data);
             showToast('Account created successfully!');
             setIsLogin(true);
         } catch (err) {
-            showToast(err.message);
+            showToast(err.message, "error");
         }
     };
 
