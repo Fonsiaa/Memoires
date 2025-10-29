@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import '../styles/Settings.scss';
+import '../styles/main.scss';
 
 export default function Settings() {
   const [name, setName] = useState('');

@@ -89,52 +89,15 @@
     align-items: center;
   }
 }
-nav {
-  position: absolute;
-}
-nav path {
-  fill: none;
-}
-nav .text-bottom {
-  fill: #808080;
-  stroke-width: 0.5;
-  letter-spacing: 0.0072631px;
-}
-nav text {
-  font-size: 15px;
-  fill: black;
-}
-nav text a {
-  text-decoration: none;
-  color: inherit;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
-
-body {
+.nav {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  min-height: 100vh;
 }
-
-.main-group {
-  stroke-linecap: round;
-  opacity: 0.7684;
-  text-anchor: middle;
-}
-.main-group image {
-  width: 50%;
-  height: 50%;
-  border-radius: 50px;
-  transform: translate(25%, 20%);
-}
-.main-group .text-top {
-  fill: #000;
-  letter-spacing: 0.0079375px;
+.nav-banner {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 :root {

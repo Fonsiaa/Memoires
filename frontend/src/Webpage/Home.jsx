@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import ImageCard from '. /components/ImageCard';
-import '../styles/Home.scss';
+import ImageCard from '../parts/ImageCard';
+import '../styles/main.scss';
 
-export default function Home() {
+const categories = ["All", "Family", "Friends", "Events", "Pets"];
+
+function Home() {
+    const [selectedCategory, setSelectedCategory] = useState("All");
+
+    const filteredImages = selectedCategory === "All"
+        ? feedImages
+        : feedImages.filter(img => img.category === selectedCategory);
+
   const [feedImages, setFeedImages] = useState([
     { id: 1, url: 'https://picsum.photos/300/400', name: 'Random 1' },
     { id: 2, url: 'https://picsum.photos/320/450', name: 'Random 2' },
@@ -12,11 +20,25 @@ export default function Home() {
 
   return (
     <div className="home-page">
-      <div className="feed-grid">
-        {feedImages.map((img) => (
-          <ImageCard key={img.id} image={img} />
-        ))}
+      <div className="filter">
+            {categories.map(category => (
+                <button>
+                key={category}
+                    className={selectedCategory === category ? 'active' : ''}
+                    onClick={() => setSelectedCategory(category)}
+                {category}
+            </button>
+            ))}
       </div>
-    </div>
+          
+        <div className="image-grid">
+        {filteredImages.map(image => (
+            <ImageCard key={img.id} image={img}/>
+        ))}
+        </div>
+
+    </div>
   );
 }
+
+export default Home;

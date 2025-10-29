@@ -1,61 +1,11 @@
-nav {
-    position: absolute;
-
-        path {
-            fill: none;
-        }
-
-        .text-bottom {
-        fill: #808080;
-        stroke-width: 0.5;
-        letter-spacing: .0072631px;
-        }
-
-        text {
-        font-size: 15px;
-        fill: black; 
-
-        a {
-            text-decoration: none; 
-            color: inherit; 
-            }
-        }
-    }
-
-* {
-    margin:0;
-    padding:0;
-}
-
-body {
-    display:flex;
-    justify-content: center;
+.nav {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-}
 
-// this is the image
-.main-group {
-    stroke-linecap: round;
-    opacity: .7684;
-    text-anchor: middle;
-
-    image {
-        width: 50%;
-        height: 50%;
-        border-radius: 50px;
-        transform: translate(25%, 20%);
+    &-banner {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
     }
-    
-    .text-top {
-        fill: #000;
-        letter-spacing: .0079375px;
-        }
 }
-
-
-
-
-
-
-
