@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ImageCard from '../components/ImageCard';
+import ImageCard from '. /components/ImageCard';
 import '../styles/Home.scss';
 
 export default function Home() {

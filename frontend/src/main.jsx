@@ -1,3 +1,4 @@
+// the main file that bootstraps the React application
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/main.scss';
