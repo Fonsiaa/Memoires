@@ -1,5 +1,3 @@
-@import "layout/dashboard"; // Main page styles
-@import "layout/header"; // Header styles
-@import "layout/authform"; // Sign-in page styles
-@import "layout/footer"; // Footer styles
-@import "layout/admin"; // Admin panel styles
+@use "layout/dashboard"; // Main page styles
+@use "layout/header"; // Header styles
+@use "layout/authform"; // Sign-in page styles

@@ -1,14 +1,3 @@
-:root {
-  --color-primary: #2563eb; /* blue-600 */
-  --color-secondary: #1d4ed8; /* blue-700 */
-  --color-background: #f9fafb; /* gray-50 */
-  --color-surface: #ffffff; /* white */
-  --color-text-default: #111827; /* gray-900 */
-  --color-text-muted: #6b7280; /* gray-500 */
-  --color-border: #e5e7eb; /* gray-200 */
-  --color-danger: #dc2626; /* red-600 */
-}
-
 .db-header {
   display: flex;
   flex-direction: column;
@@ -28,6 +17,57 @@
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+/* Polaroid style for image cards */
+.img_card {
+  background: #fff;
+  padding: 12px 12px 20px;
+  border: 8px solid #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+}
+.img_card .polaroid-top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.img_card .polaroid-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: center;
+  color: #111827;
+}
+.img_card .polaroid-body {
+  width: 100%;
+  background: #fff;
+}
+.img_card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 4px;
+}
+.img_card .polaroid-icons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.img_card .edit-caption {
+  margin-left: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
 }
 
 .image-item {
@@ -93,22 +133,42 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 0;
 }
 .nav-banner {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  max-width: 160px;
+  width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
 }
-
-:root {
-  --color-primary: #2563eb; /* blue-600 */
-  --color-secondary: #1d4ed8; /* blue-700 */
-  --color-background: #f9fafb; /* gray-50 */
-  --color-surface: #ffffff; /* white */
-  --color-text-default: #111827; /* gray-900 */
-  --color-text-muted: #6b7280; /* gray-500 */
-  --color-border: #e5e7eb; /* gray-200 */
-  --color-danger: #dc2626; /* red-600 */
+.nav-banner-link {
+  display: inline-block;
+}
+.nav-links {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.nav-link {
+  text-decoration: none;
+  color: #111;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+}
+.nav-link:hover {
+  color: #0b66ff;
+}
+@media (max-width: 480px) {
+  .nav-links {
+    gap: 0.75rem;
+  }
 }
 
 .card {

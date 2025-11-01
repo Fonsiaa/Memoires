@@ -3,7 +3,7 @@ import { Upload, Image, Trash2 } from 'lucide-react';
 import { Button, Card } from '../parts/UI';
 import '../styles/main.css'
 
-export function Profile({ user, uploadedImages, handleUpload, handleDeleteImage }) {
+function Profile({ user, uploadedImages, handleUpload, handleDeleteImage }) {
     const fileInputRef = useRef(null);
 
     const formatFileSize = (bytes) => {
@@ -78,3 +78,5 @@ return (
     </div>
     );
 }
+
+export default Profile;

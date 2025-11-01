@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import '../styles/main.scss';
 
-export default function Settings() {
+export default function Admin() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [theme, setTheme] = useState('light');

@@ -1,11 +1,47 @@
 .nav {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; // stack image above links
     align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 0;
 
     &-banner {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 10px;
+        max-width: 160px;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    &-banner-link {
+        display: inline-block;
+    }
+
+    &-links {
+        display: flex;
+        gap: 1.25rem;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    &-link {
+        text-decoration: none;
+        color: #111;
+        font-weight: 600;
+        padding: 0.25rem 0.5rem;
+
+        &:hover {
+            color: #0b66ff;
+        }
+    }
+
+    // Responsive tweak: keep things compact on small screens
+    @media (max-width: 480px) {
+        &-links {
+            gap: 0.75rem;
+        }
     }
 }
