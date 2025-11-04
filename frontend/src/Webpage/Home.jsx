@@ -3,10 +3,20 @@ import ImageCard from '../parts/ImageCard';
 import '../styles/main.scss';
 
 const DEFAULT_IMAGES = [
-    { id: 1, url: 'https://picsum.photos/300/400', name: 'Random 1', category: 'Family' },
-    { id: 2, url: 'https://picsum.photos/320/450', name: 'Random 2', category: 'Friends' },
-    { id: 3, url: 'https://picsum.photos/310/420', name: 'Random 3', category: 'Events' },
-    { id: 4, url: 'https://picsum.photos/330/410', name: 'Random 4', category: 'Pets' },
+    { id: 1, url: "https://img.freepik.com/free-photo/concept-beautiful-outdoor-relax-summer-time-picnic_185193-87301.jpg", name: "Family Picnic - Park Day", category: "Family" },
+    { id: 2, url: "https://source.unsplash.com/featured/?family,portrait", name: "Grandma's Smile", category: "Family" },
+
+    { id: 3, url: "https://source.unsplash.com/featured/?friends,group", name: "Coffee with Friends", category: "Friends" },
+    { id: 4, url: "https://source.unsplash.com/featured/?friends,selfie", name: "Rooftop Selfie", category: "Friends" }    ,
+    
+    { id: 5, url: "https://source.unsplash.com/featured/?party,event", name: "Birthday Celebration", category: "Events" }  ,
+    { id: 6, url: "https://source.unsplash.com/featured/?wedding,ceremony", name: "Wedding Ceremony", category: "Events"   },
+    
+    { id: 7, url: "https://source.unsplash.com/featured/?pet,dog", name: "Golden Pup", category: "Pets" },     
+    { id: 8, url: "https://source.unsplash.com/featured/?cat,kitten", name: "Sleepy Kitten", category: "Pets" },   
+    
+    { id: 9, url: "https://source.unsplash.com/featured/?documents,papers", name: "Important Document", category: "Documents" },
+    { id: 10, url: "https://source.unsplash.com/featured/?office,notes", name: "Work Notes", category: "Documents" },
 ];
 
 function Home() {
@@ -15,9 +25,11 @@ function Home() {
     const [feedImages, setFeedImages] = useState(() => {
         try {
             const raw = localStorage.getItem('feedImages');
-            return raw ? JSON.parse(raw) : DEFAULT_IMAGES;
+            const parsed = raw ? JSON.parse(raw) : DEFAULT_IMAGES;
+            // normalize categories -> array
+            return parsed.map(img => ({ ...img, categories: img.categories || (img.category ? [img.category] : []) }));
         } catch (e) {
-            return DEFAULT_IMAGES;
+            return DEFAULT_IMAGES.map(img => ({ ...img, categories: img.category ? [img.category] : [] }));
         }
     });
 
@@ -40,15 +52,32 @@ function Home() {
     }, [favourites]);
 
     const categories = useMemo(() => {
-        const defaultCats = ['Family', 'Friends', 'Events', 'Pets'];
-        const set = new Set(feedImages.map(i => i.category).filter(Boolean));
+        const defaultCats = ['Family', 'Friends', 'Events', 'Pets', 'Documents'];
+        const set = new Set();
+        feedImages.forEach(i => (i.categories || []).forEach(c => c && set.add(c)));
         defaultCats.forEach(c => set.add(c));
         return ['All', ...Array.from(set)];
     }, [feedImages]);
 
     const filteredImages = selectedCategory === 'All'
         ? feedImages
-        : feedImages.filter(img => img.category === selectedCategory);
+        : feedImages.filter(img => (img.categories && img.categories.includes(selectedCategory)) || img.category === selectedCategory);
+
+    // listen for profile uploads (same-page updates). Profile dispatches 'feedImagesUpdated' when it writes to localStorage
+    useEffect(() => {
+        function onFeedUpdated() {
+            try {
+                const raw = localStorage.getItem('feedImages');
+                const parsed = raw ? JSON.parse(raw) : DEFAULT_IMAGES;
+                const normalized = parsed.map(img => ({ ...img, categories: img.categories || (img.category ? [img.category] : []) }));
+                setFeedImages(normalized);
+            } catch (e) {
+                /* ignore parse errors */
+            }
+        }
+        window.addEventListener('feedImagesUpdated', onFeedUpdated);
+        return () => window.removeEventListener('feedImagesUpdated', onFeedUpdated);
+    }, []);
 
     function handleToggleFavourite(image) {
         setFavourites(prev => {
@@ -86,28 +115,6 @@ function Home() {
                             {category}
                         </button>
                     ))}
-                </div>
-                <div className="upload-area">
-                    <form onSubmit={(e) => { e.preventDefault(); }}>
-                        <input type="file" accept="image/*" multiple id="imageFiles" onChange={(e) => {
-                            const files = Array.from(e.target.files || []);
-                            if (files.length === 0) return;
-                            // read files and add
-                            files.forEach(file => {
-                                const reader = new FileReader();
-                                reader.onload = (ev) => {
-                                    const url = ev.target.result;
-                                    const id = Date.now() + Math.floor(Math.random() * 1000);
-                                    const name = file.name.replace(/\.[^.]+$/, '');
-                                    const category = window.prompt('Category for ' + file.name + ' (Family/Friends/Events/Pets)') || 'Uncategorized';
-                                    const newImg = { id, url, name, category };
-                                    setFeedImages(prev => [newImg, ...prev]);
-                                };
-                                reader.readAsDataURL(file);
-                            });
-                            e.target.value = '';
-                        }} />
-                    </form>
                 </div>
             </div>
 

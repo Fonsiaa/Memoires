@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function ImageCard({ image, onToggleFavourite, onUpdateCaption, isFavourite }) {
+function ImageCard({ image, onToggleFavourite, onUpdateCaption, isFavourite, onShare }) {
     const [editing, setEditing] = useState(false);
     const [value, setValue] = useState(image.name || image.caption || "");
 
@@ -13,42 +13,49 @@ function ImageCard({ image, onToggleFavourite, onUpdateCaption, isFavourite }) {
         if (onUpdateCaption) onUpdateCaption(image.id, value);
     }
 
-    function shareImage() {
-        // Try Web Share API first
-        if (navigator.share) {
-            navigator.share({
-                title: value || image.name,
-                text: value || image.name,
-                url: image.url
-            }).catch(() => {
-                // ignore share errors
-            });
-            return;
+    async function localShare() {
+        // Local fallback share function (used if parent doesn't provide onShare)
+        try {
+            if (navigator.share) {
+                await navigator.share({ title: value || image.name, text: value || image.name, url: image.url });
+                return;
+            }
+        } catch (e) {
+            // ignore
         }
 
-        // Fallback: open social share windows if image URL is HTTP(S)
-        const encoded = encodeURIComponent(image.url);
-        const text = encodeURIComponent(value || image.name || '');
+        if (navigator.clipboard && image.url) {
+            try {
+                await navigator.clipboard.writeText(image.url);
+                alert('Image URL/data copied to clipboard. Paste it into a post.');
+                return;
+            } catch (e) {
+                // ignore
+            }
+        }
+
+        // final fallback: open share windows for http urls or download
         if (image.url && image.url.startsWith('http')) {
-            // open a small chooser window with options
+            const encoded = encodeURIComponent(image.url);
+            const text = encodeURIComponent(value || image.name || '');
             const fb = `https://www.facebook.com/sharer/sharer.php?u=${encoded}`;
             const tw = `https://twitter.com/intent/tweet?url=${encoded}&text=${text}`;
             const wa = `https://api.whatsapp.com/send?text=${text}%20${encoded}`;
             window.open(fb, '_blank', 'noopener');
-            // also open twitter in new tab
             window.open(tw, '_blank', 'noopener');
             window.open(wa, '_blank', 'noopener');
             return;
         }
 
-        // If not a public URL (e.g., data:), copy to clipboard as fallback
-        if (navigator.clipboard && image.url) {
-            navigator.clipboard.writeText(image.url).then(() => {
-                alert('Image data copied to clipboard. Paste it into a social post or save it first.');
-            }).catch(() => {
-                alert('Unable to share this image from the browser. Consider exporting it first.');
-            });
-        } else {
+        // download fallback
+        try {
+            const a = document.createElement('a');
+            a.href = image.url;
+            a.download = image.name || 'image';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        } catch (e) {
             alert('Sharing not supported for this image from the browser.');
         }
     }
@@ -81,7 +88,7 @@ function ImageCard({ image, onToggleFavourite, onUpdateCaption, isFavourite }) {
             <div className="polaroid-icons" style={{ position: 'absolute', bottom: 8, right: 8, display: 'flex', gap: 8 }}>
                 <button
                     className="share-btn"
-                    onClick={shareImage}
+                    onClick={() => (onShare ? onShare(image) : localShare())}
                     style={{ background: 'transparent', border: 'none', fontSize: 18 }}
                     aria-label="Share image"
                 >
