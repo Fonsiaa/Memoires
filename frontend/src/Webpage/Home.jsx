@@ -4,16 +4,16 @@ import '../styles/main.scss';
 
 const DEFAULT_IMAGES = [
     { id: 1, url: "https://img.freepik.com/free-photo/concept-beautiful-outdoor-relax-summer-time-picnic_185193-87301.jpg", name: "Family Picnic - Park Day", category: "Family" },
-    { id: 2, url: "https://source.unsplash.com/featured/?family,portrait", name: "Grandma's Smile", category: "Family" },
+    { id: 2, url: "https://cdn.pixabay.com/photo/2022/07/27/06/04/smile-7347220_1280.jpg", name: "Grandma's Smile", category: "Family" },
 
-    { id: 3, url: "https://source.unsplash.com/featured/?friends,group", name: "Coffee with Friends", category: "Friends" },
-    { id: 4, url: "https://source.unsplash.com/featured/?friends,selfie", name: "Rooftop Selfie", category: "Friends" }    ,
+    { id: 3, url: "https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/k-111-ae-5281.jpg?w=800&dpr=1&fit=default&crop=default&auto=format&fm=jpg&q=75&vib=3&con=3&usm=15&ixlib=js-1.1.1&s=f71ed6311c4b180c72bf7d01df9dff04", name: "Coffee with Friends", category: "Friends" },
+    { id: 4, url: "https://img.freepik.com/premium-photo/sleek-cat-perched-rooftop-against-city-skyline_731930-173539.jpg", name: "Rooftop Selfie", category: "Friends" }    ,
     
-    { id: 5, url: "https://source.unsplash.com/featured/?party,event", name: "Birthday Celebration", category: "Events" }  ,
-    { id: 6, url: "https://source.unsplash.com/featured/?wedding,ceremony", name: "Wedding Ceremony", category: "Events"   },
+    { id: 5, url: "https://cdn.greenvelope.com/blog/wp-content/uploads/AdobeStock_133800814-scaled.jpeg", name: "Birthday Celebration", category: "Events" }  ,
+    { id: 6, url: "https://tse3.mm.bing.net/th/id/OIP.z0v0ouUov54SMKX7SB5nugHaEU?w=1200&h=700&rs=1&pid=ImgDetMain&o=7&rm=3", name: "Wedding Ceremony", category: "Events"   },
     
-    { id: 7, url: "https://source.unsplash.com/featured/?pet,dog", name: "Golden Pup", category: "Pets" },     
-    { id: 8, url: "https://source.unsplash.com/featured/?cat,kitten", name: "Sleepy Kitten", category: "Pets" },   
+    { id: 7, url: "https://th.bing.com/th/id/R.4f25a5c437a7cd52817a4f13a484b4a5?rik=kBzmMqJZqz7Gmw&riu=http%3a%2f%2fs1.bwallpapers.com%2fwallpapers%2f2013%2f12%2f26%2fgolden-retriever-puppy_061645.jpg&ehk=4%2f0qrVKTHKXiGYaKzJcaiSJ4WVd8XyoxZbpP%2fCZnCUo%3d&risl=&pid=ImgRaw&r=0", name: "Golden Pup", category: "Pets" },     
+    { id: 8, url: "https://i.pinimg.com/736x/bd/75/81/bd75815f05e6e2ea657405f30fbdf9ac.jpg", name: "Sleepy Kitten", category: "Pets" },   
     
     { id: 9, url: "https://source.unsplash.com/featured/?documents,papers", name: "Important Document", category: "Documents" },
     { id: 10, url: "https://source.unsplash.com/featured/?office,notes", name: "Work Notes", category: "Documents" },
@@ -105,7 +105,7 @@ function Home() {
 
     return (
         <div className="home-page">
-            <div className="home-toolbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+            <div className="home-toolbar">
                 <div className="filter">
                     {categories.map(category => (
                         <button

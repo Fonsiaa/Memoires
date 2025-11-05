@@ -1,16 +1,33 @@
-.db-header {
-  display: flex;
-  flex-direction: column;
+.home-page {
   padding: 1.5rem;
-  background-color: var(--color-surface);
-  border-radius: 0.75rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background-image: url("https://static.vecteezy.com/system/resources/previews/011/468/562/non_2x/cork-board-background-is-used-for-design-work-free-photo.jpg");
+  min-height: 100vh;
 }
-.db-header h1 {
-  font-size: 1.875rem;
-  font-weight: 700;
+.home-page .home-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  display: flex;
+}
+.home-page .home-toolbar .filter {
+  display: flex;
+  gap: 5px;
+  justify-self: center;
+}
+.home-page .home-toolbar .filter button {
+  background: #ffa54b;
+  color: rgb(76, 73, 73);
+  text-align: center;
+  align-items: center;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.home-page .home-toolbar .filter button.active {
+  background: #f9f350;
   color: #1f2937;
-  margin-bottom: 0.5rem;
 }
 
 .image-grid {
@@ -47,7 +64,7 @@
 }
 .img_card .polaroid-body {
   width: 100%;
-  background: #fff;
+  background: #ceadad;
 }
 .img_card img {
   display: block;

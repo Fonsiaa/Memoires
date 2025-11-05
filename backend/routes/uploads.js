@@ -10,7 +10,6 @@ const __dirname = path.dirname(__filename);
 
 const uploadDir = path.join(__dirname, '..', 'public', 'uploads');
 
-// ensure folder exists (simple sync create)
 import fs from 'fs';
 try { fs.mkdirSync(uploadDir, { recursive: true }); } catch (e) {}
 
