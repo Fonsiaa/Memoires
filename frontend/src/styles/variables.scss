@@ -1,0 +1,15 @@
+//importing fonts
+@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Modak&display=swap");
+
+@property --font {}
+
+$font: "Modak", cursive;
+$text: "Fuzzy Bubbles", cursive;
+
+//shade of brown 
+$primary-color: #c5a787; 
+$dark-brown:#301f17; 
+$light-brown: #63402c;
+$ted-brown: #8f664a;
+$milk-brown: #ac8764

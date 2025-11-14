@@ -7,14 +7,12 @@ dotenv.config();
 
 
 const app = express();
-const port = 3000;
-
 app.use(cors());
-
 app.use(express.json());
+
 app.use('/api/user', users)
 
-const dbURI = process.env.DB_URI;
+const dbURI = "MONGO_URI" in process.env ? process.env.MONGO_URI : "mongodb://localhost:27017/memoires";
 // const dbURI = "mongodb://localhost:27017"
 
 const connectDB = async() => {

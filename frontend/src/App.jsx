@@ -7,7 +7,6 @@ import Favourite from "./Webpage/Favourite";
 
 import { AuthForm } from "./Webpage/AuthForm";
 import Profile from "./Webpage/Profile";
-import Admin from "./Webpage/Admin";
 import Home from "./Webpage/Home";
 
 import "./styles/main.scss";
@@ -39,7 +38,6 @@ function App() {
                 <Route path="/favourites" element={<Favourite />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/auth" element={<AuthForm setUser={(u) => { setCurrentUser(u); localStorage.setItem('currentUser', JSON.stringify(u)); }} showToast={showToast} />} />
-                <Route path="/admin" element={<Admin />} />
             </Routes>
         </Router>
 

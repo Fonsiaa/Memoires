@@ -1,3 +1,7 @@
+//using the variables from _variables.scss
+@import '../variables.scss';
+
+
 .nav {
     display: flex;
     flex-direction: column; // stack image above links
@@ -5,6 +9,11 @@
     justify-content: center;
     gap: 0.75rem;
     padding: 1rem 0;
+
+    h1 {
+        font-family: $text;
+        margin: 0;
+    }
 
     &-banner {
         max-width: 160px;
@@ -25,16 +34,49 @@
         align-items: center;
         justify-content: center;
         width: 100%;
+        
     }
 
     &-link {
         text-decoration: none;
-        color: #111;
         font-weight: 600;
         padding: 0.25rem 0.5rem;
+        color: $dark-brown;
+
+        &:active {
+            color: $milk-brown;
+            background-color: aqua;
+        }
 
         &:hover {
-            color: #0b66ff;
+            color: $primary-color;
+            background-color: $dark-brown;
+            border-radius: 10px;
+        }
+    }
+
+    /* show dropdown when parent is hovered, focused, or open (JS) */
+    .nav-item--dropdown {
+        position: relative;
+        text-decoration: none;
+
+        .dropdown {
+        display: none;
+        position: absolute;
+        z-index: 1; // ensure it appears above other content
+        top: 100%;
+        transform: translateX(-10%);
+        background-color: $milk-brown;
+        box-shadow: 0 4px 8px $dark-brown;
+        border-radius: 6px;
+        margin-top: -0.25rem;
+        list-style-type: none;
+    }
+    
+        &.open .dropdown {
+            display: block;
+            padding: 5px;
+            margin: auto;
         }
     }
 

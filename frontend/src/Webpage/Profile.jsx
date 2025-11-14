@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Upload, Image as ImageIcon, Trash2, Share2 } from 'lucide-react';
 import { Button, Card } from '../parts/UI';
 import '../styles/main.css';
-import '../styles/layout/_profile.scss';
 
 const DEFAULT_USER = { name: 'Your Name', username: 'username', bannerUrl: null };
 const DEFAULT_CATS = ['Family','Friends','Events','Pets','Documents'];

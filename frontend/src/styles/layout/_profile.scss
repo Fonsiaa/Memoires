@@ -1,8 +1,12 @@
+@import '../variables.scss';
+
 /* Profile page layout styles */
 .profile-page {
-	max-width: 1000px;
+	min-height: 100vh;
 	margin: 0 auto;
-	padding: 18px;
+	padding: 40px 20px;
+	background: linear-gradient(180deg, $primary-color 10%, $dark-brown 100%);
+	-webkit-font-smoothing: antialiased;
 }
 
 .profile-banner {
@@ -15,7 +19,6 @@
 	align-items: flex-end;
 	justify-content: flex-end;
 	padding: 12px;
-	background-color: #f3f4f6;
 }
 
 .profile-banner .banner-placeholder {

@@ -1,104 +1,185 @@
-import React, { useState } from 'react';
-import { LogIn, UserPlus } from 'lucide-react';
-import { Input, Button, Card } from '../parts/UI';
-import '../styles/main.css';
+import React, { useState } from "react";
+import { LogIn, UserPlus, Eye, Mail, Key } from "lucide-react";
+import "../styles/main.scss";
 
 export function AuthForm({ setUser, showToast }) {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleLogin = async (email, password) => {
     try {
-    const res = await fetch("http://localhost:3000/api/user/login", {
+        const res = await fetch("http://localhost:3000/api/user/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
     });
+    
     const data = await res.json();
         if (!res.ok) throw new Error(data.message || "Login failed");
-
         localStorage.setItem("currentUser", JSON.stringify(data.user));
         setUser(data.user);
+        try {
+        window.dispatchEvent(new Event("userUpdated"));
+        } catch (e) {}
         showToast(`Welcome back, ${data.user.name}!`);
     } catch (err) {
         showToast(err.message, "error");
-        }
-    };
+    }
+};
 
     const handleSignUp = async (name, email, password) => {
-        try {
-            const res = await fetch('http://localhost:3000/api/user', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password }),
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || "Signup failed");
+    try {
+    const res = await fetch("http://localhost:3000/api/user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+    });
+    
+    const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Signup failed");
+        localStorage.setItem("currentUser", JSON.stringify(data));setUser(data);
+            try {
+            window.dispatchEvent(new Event("userUpdated"));
+        } catch (e) {}
+        showToast("Account created successfully!");
+        setIsLogin(true);
+    } catch (err) {
+        showToast(err.message, "error");
+    }
+};
 
-            localStorage.setItem("currentUser", JSON.stringify(data));
-            setUser(data);
-            showToast('Account created successfully!');
-            setIsLogin(true);
-        } catch (err) {
-            showToast(err.message, "error");
-        }
-    };
+const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isLogin) handleLogin(email, password);
+    else handleSignUp(name, email, password);
+};
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (isLogin) {
-            handleLogin(email, password);
-        } else {
-            handleSignUp(name, email, password);
-        }
-    };
-
-    return (
-        <div>
-            <Card title={isLogin ? "Welcome back!" : "Create an Account"}>
-                <form onSubmit={handleSubmit}>
-                    {!isLogin && (
-                        <Input
-                            label="Full Name"
-                            id="name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                        />
-                    )}
-                    <Input
-                        label="Email"
-                        id="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                    <Input
-                        label="Password"
-                        id="password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    <Button type="submit">
-                        {isLogin ? <><LogIn /> Login</> : <><UserPlus /> Sign Up</>}
-                    </Button>
-                </form>
-                <p style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.875rem' }}>
-                    {isLogin ? "Don't have an account?" : "Already have an account?"}{' '}
-                    <button
-                        type="button"
-                        onClick={() => setIsLogin(!isLogin)}
-                        className="link-button"
-                    >
-                        {isLogin ? "Sign Up" : "Login"}
-                    </button>
+return (
+    <div className="app-wrap">
+        <div className="auth-card">
+        <div className="auth-left">
+            <div className="heading">
+                <h2 className="title">{isLogin ? "Member Login" : "Sign Up"}</h2>
+                <p className="subtitle">
+                    {isLogin ? "Please fill in your basic info" : "Using your social media account"}
                 </p>
-            </Card>
         </div>
-    );
+
+        <form className="form" onSubmit={handleSubmit} noValidate>
+            {!isLogin && (
+            <label className="field">
+                <span className="icon">
+                    <UserPlus size={18} />
+                </span>
+
+                <input
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Full name"
+                    required
+                />
+            </label>
+        )}
+
+            <label className="field">
+            <span className="icon">
+                <Mail size={18} />
+            </span>
+
+            <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                required
+                />
+            </label>
+
+            <label className="field password-row">
+                <span className="icon">
+                    <Key size={18} />
+                </span>
+            <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                required
+            />
+            <button
+                type="button"
+                className="toggle"
+                onClick={() => setShowPassword((s) => !s)}
+                aria-label="Toggle password visibility"
+            >
+                <Eye size={16} />
+            </button>
+            </label>
+
+            <button type="submit" className="btn-login">
+              <span className="btn-icon">
+                {isLogin ? <LogIn size={16} /> : <UserPlus size={16} />}
+              </span>
+            </button>
+
+            {isLogin && (
+              <button
+                type="button"
+                className="forgot"
+                onClick={() => showToast("Forgot password flow not implemented")}
+              >
+                Forgot Password?
+              </button>
+            )}
+          </form>
+        </div>
+
+        <div className="auth-right">
+          <div className="scenic" aria-hidden="true" />
+          <div className="signup-panel">
+            <h3 className="title">Sign Up</h3>
+            <p className="subtitle">Using your social media account</p>
+
+            <div className="social-row">
+              <button type="button" className="social gmail">
+                <span className="s-icon">G</span>
+                <span>Gmail</span>
+              </button>
+              <button type="button" className="social facebook">
+                <span className="s-icon">f</span>
+                <span>Facebook</span>
+              </button>
+              <button type="button" className="social twitter">
+                <span className="s-icon">t</span>
+                <span>Twitter</span>
+              </button>
+            </div>
+
+            <label className="terms">
+              <input type="checkbox" />
+              <span className="terms-text">By signing up, I agree with terms and conditions</span>
+            </label>
+
+          </div>
+        </div>
+      </div>
+
+      <p className="switch-note">
+        {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+        <button
+          type="button"
+          onClick={() => setIsLogin(!isLogin)}
+          className="link-button"
+        >
+          {isLogin ? "Sign Up" : "Login"}
+        </button>
+      </p>
+    </div>
+  );
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import '../styles/main.scss';
 
 function ImageCard({ image, onToggleFavourite, onUpdateCaption, isFavourite, onShare }) {
     const [editing, setEditing] = useState(false);
