@@ -1,14 +1,13 @@
 // auth.scss
+@import '../variables.scss';
+
 $bg-gradient-start: #826B72;
 $bg-gradient-end: #F7dac1;
-$card-width: 920px;
-$card-radius: 18px;
 $card-shadow: 0 12px 30px #d8b0a0; 
 $accent-gradient: linear-gradient(90deg, #ff7aa8 0%, #6eb7ff 100%);
 $muted: #9aa6bf;
 $white: #ffffff;
 $breakpoint-sm: 720px;
-$scenic-path: "/images/scenic.jpg";
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -23,6 +22,7 @@ html, body { margin: 0; padding: 0; }
     font-family: Inter, Roboto, system-ui, -apple-system, "Segoe UI", Arial;
     -webkit-font-smoothing: antialiased;
     color: $white;
+    font-family: $text;
 }
 
 .auth-card {
@@ -50,8 +50,8 @@ html, body { margin: 0; padding: 0; }
   gap: 18px;
 
   .heading .title {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 32px;
+    font-family: $font;
   }
   .heading .subtitle {
     color: blanchedalmond;
@@ -75,6 +75,10 @@ html, body { margin: 0; padding: 0; }
       border-radius: 10px;
       padding: 12px 14px;
       border: 1px solid rgba(255,255,255,0.04);
+
+      .input{
+        font-family: $text;
+      }
 
       .icon { margin-right: 12px; color: rgba(255,255,255,0.9); display:inline-flex; align-items:center; }
       input {
@@ -108,7 +112,7 @@ html, body { margin: 0; padding: 0; }
       border-radius: 10px;
       font-weight: 700;
       letter-spacing: 0.4px;
-      background: $accent-gradient;
+      background: $dark-brown;
       color: $white;
       box-shadow: 0 6px 18px rgba(106, 158, 255, 0.26);
       display: inline-flex;
@@ -119,6 +123,7 @@ html, body { margin: 0; padding: 0; }
     }
 
     .forgot {
+      font-family: $text;   
       margin-top: 6px;
       color: rgba(255,255,255,0.7);
       font-size: 13px;
@@ -146,13 +151,9 @@ html, body { margin: 0; padding: 0; }
     right: 0;
     top: 0;
     bottom: 0;
-    width: 56%;
-    background-image: url(#{$scenic-path});
-    background-size: cover;
-    background-position: center;
-    filter: saturate(0.98) contrast(0.98);
+    width: 100%;
     z-index: 1;
-    border-left: 1px solid rgba(255,255,255,0.03);
+    border-left: 1px solid rgba(108, 43, 43);
   }
 
   .signup-panel {

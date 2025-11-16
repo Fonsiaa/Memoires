@@ -237,7 +237,7 @@ function Profile() {
                     <div className="banner-placeholder">No banner set</div>
                 )}
                 <div className="banner-actions">
-                    <Button variant="secondary" onClick={triggerBannerPick}><Upload size={14}/> Change Banner</Button>
+                    <Button variant="secondary" onClick={triggerBannerPick}><Upload size={14}/>Upload</Button>
                     <input ref={bannerInputRef} type="file" accept="image/*" style={{display:'none'}} onChange={handleBannerChange} />
                 </div>
             </div>
@@ -251,7 +251,7 @@ function Profile() {
                 </div>
 
                 <div className="profile-actions">
-                    <Button variant="primary" onClick={triggerFilePick}><Upload size={14}/> Upload Images</Button>
+                    <Button variant="primary" onClick={triggerFilePick}><Upload size={14}/>Post</Button>
                     <input ref={fileInputRef} type="file" accept="image/*" multiple style={{display:'none'}} onChange={handleFilesSelected} />
                 </div>
             </div>

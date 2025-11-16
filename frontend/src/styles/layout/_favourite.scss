@@ -1,0 +1,13 @@
+@import "../variables.scss";
+
+.favourites-page {
+    padding: 1.5rem;
+    background-color: #c5a787;
+    min-height: 100vh;
+
+    .image-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}

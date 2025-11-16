@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { LogIn, UserPlus, Eye, Mail, Key } from "lucide-react";
+
 import "../styles/main.scss";
 
 export function AuthForm({ setUser, showToast }) {
@@ -56,6 +57,26 @@ const handleSubmit = (e) => {
     if (isLogin) handleLogin(email, password);
     else handleSignUp(name, email, password);
 };
+
+  // Handle OAuth redirect back from backend (e.g. /auth/facebook/callback -> frontend /auth/success?user=...)
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const userParam = params.get('user');
+      if (userParam) {
+        const user = JSON.parse(decodeURIComponent(userParam));
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        if (typeof setUser === 'function') setUser(user);
+        try { window.dispatchEvent(new Event('userUpdated')); } catch (e) {}
+        if (typeof showToast === 'function') showToast(`Welcome, ${user.name}!`);
+        // remove query params from URL
+        const clean = window.location.pathname;
+        window.history.replaceState({}, document.title, clean);
+      }
+    } catch (e) {
+      // ignore parse errors
+    }
+  }, []);
 
 return (
     <div className="app-wrap">
@@ -147,17 +168,13 @@ return (
             <p className="subtitle">Using your social media account</p>
 
             <div className="social-row">
-              <button type="button" className="social gmail">
+              <button type="button" className="social gmail" onClick={() => { window.location.href = 'http://localhost:2824/auth/google'; }}>
                 <span className="s-icon">G</span>
                 <span>Gmail</span>
               </button>
-              <button type="button" className="social facebook">
+              <button type="button" className="social facebook" onClick={() => { window.location.href = 'http://localhost:2824/auth/facebook'; }}>
                 <span className="s-icon">f</span>
                 <span>Facebook</span>
-              </button>
-              <button type="button" className="social twitter">
-                <span className="s-icon">t</span>
-                <span>Twitter</span>
               </button>
             </div>
 

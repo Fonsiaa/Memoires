@@ -1,4 +1,11 @@
-@use "layout/dashboard"; // Main page styles
+@use "layout/home"; // Main page styles
 @use "layout/header"; // Header styles
 @use "layout/authform"; // Sign-in page styles
 @use "layout/profile"; // User profile page styles
+@use "layout/favourite"; // Favourite images page styles
+@use "layout/dash"; // Dashboard page styles
+
+
+* {
+    font-family: "Fuzzy Bubbles";
+}

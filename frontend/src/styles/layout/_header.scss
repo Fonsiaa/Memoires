@@ -1,22 +1,21 @@
 //using the variables from _variables.scss
 @import '../variables.scss';
 
-
 .nav {
     display: flex;
     flex-direction: column; // stack image above links
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    padding: 1rem 0;
+    padding: 1rem 0; 
 
     h1 {
-        font-family: $text;
+        font-family: $font;
         margin: 0;
     }
 
     &-banner {
-        max-width: 160px;
+        max-width: 120px;
         width: 100%;
         height: auto;
         object-fit: cover;
@@ -33,20 +32,16 @@
         gap: 1.25rem;
         align-items: center;
         justify-content: center;
-        width: 100%;
-        
+        width: 100%;       
     }
 
     &-link {
         text-decoration: none;
         font-weight: 600;
-        padding: 0.25rem 0.5rem;
+        line-height: 1.5;
+        padding: 0.25rem;
         color: $dark-brown;
-
-        &:active {
-            color: $milk-brown;
-            background-color: aqua;
-        }
+        font-family: $text;
 
         &:hover {
             color: $primary-color;
@@ -59,6 +54,8 @@
     .nav-item--dropdown {
         position: relative;
         text-decoration: none;
+        font-family: $text;
+        padding: 0.25rem 0.5rem;
 
         .dropdown {
         display: none;
@@ -75,7 +72,7 @@
     
         &.open .dropdown {
             display: block;
-            padding: 5px;
+            padding: 10px;
             margin: auto;
         }
     }

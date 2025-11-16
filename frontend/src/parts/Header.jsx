@@ -1,6 +1,6 @@
-  import React, { useState, useRef, useEffect } from 'react';
-  import { NavLink } from 'react-router-dom';
-  import '../styles/main.scss';
+import React, { useState, useRef, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import '../styles/main.scss';
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -62,7 +62,7 @@ function Navbar() {
 
   return (
   <div className="nav" ref={containerRef}>
-    <h1>{user && user.name ? `${user.name} Memoires` : 'Your Name Memoires'}</h1>
+    <h1>{user && user.name ? `${user.name}'s Memoires` : "Memoires"}</h1>
     <NavLink to="/profile" className="nav-banner-link" aria-label="Go to profile">
       <img src="https://jp.4d.com/sites/default/files/u3332/4d_client2x.png" alt="User profile" className="nav-banner" />
     </NavLink>
@@ -94,8 +94,8 @@ function Navbar() {
         </NavLink>
 
         <ul className={`dropdown ${open ? 'open' : ''}`} role="menu" aria-label="Admin menu">
-          <li role="none"><NavLink role="menuitem" to="/admin/dashboard" className="nav-link" onClick={() => setOpen(false)}>Dashboard</NavLink></li>
-          <li role="none"><NavLink role="menuitem" to="/admin/reviews" className="nav-link" onClick={() => setOpen(false)}>Reviews</NavLink></li>
+          <li role="none"><NavLink role="menuitem" to="/dashbd" className="nav-link" onClick={() => setOpen(false)}>Dashboard</NavLink></li>
+          <li role="none"><NavLink role="menuitem" to="/reviews" className="nav-link" onClick={() => setOpen(false)}>Reviews</NavLink></li>
           <li role="none"><NavLink role="menuitem" to="/profile" className="nav-link" onClick={() => setOpen(false)}>Uploads</NavLink></li>
           <li role="none"><NavLink role="menuitem" to="/auth" className="nav-link" onClick={() => setOpen(false)}>Login</NavLink></li>
         </ul>

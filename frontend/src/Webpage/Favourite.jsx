@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ImageCard from '../parts/ImageCard';
+import '../styles/main.scss';
 
 function Favourite() {
     const [favourites, setFavourites] = useState([]);

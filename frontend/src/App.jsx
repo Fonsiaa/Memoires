@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./parts/Header";
-
 import Favourite from "./Webpage/Favourite";
-
 import { AuthForm } from "./Webpage/AuthForm";
 import Profile from "./Webpage/Profile";
 import Home from "./Webpage/Home";
+import {Dashboard} from "./Webpage/Dashboard";
+import {Review} from "./Webpage/Review";
 
 import "./styles/main.scss";
 
@@ -36,7 +36,9 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/favourites" element={<Favourite />} />
+                <Route path="/dashbd" element={<Dashboard />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/reviews" element={<Review />} />
                 <Route path="/auth" element={<AuthForm setUser={(u) => { setCurrentUser(u); localStorage.setItem('currentUser', JSON.stringify(u)); }} showToast={showToast} />} />
             </Routes>
         </Router>

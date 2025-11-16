@@ -19,6 +19,7 @@
       justify-self: center;
 
       button {
+        font-family: $text;
         background: $ted-brown;
         color: $primary-color;
         text-align: center;
@@ -40,6 +41,7 @@
 .image-grid {
   display: grid;
   gap: 1rem;
+  padding: 0.5rem 1rem;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
@@ -67,6 +69,7 @@
   .polaroid-title {
     font-weight: 700;
     font-size: 0.95rem;
+    font-family: $text;
     text-align: center;
     color: #111827;
   }
@@ -109,30 +112,6 @@
     height: auto;
     display: block;
     object-fit: cover;
-  }
-
-  &-info {
-    padding: 0.5rem;
-
-    p {
-      margin: 0;
-
-      &:first-of-type {
-        font-size: 0.875rem;
-        font-weight: 600;
-        color: #1f2937;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
-
-      &:nth-of-type(2),
-      &:nth-of-type(3) {
-        font-size: 0.75rem;
-        color: #6b7280;
-        margin-top: 0.25rem;
-      }
-    }
   }
 }
 
