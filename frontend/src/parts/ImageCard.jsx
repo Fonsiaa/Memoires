@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import '../styles/main.scss';
 
-function ImageCard({ image, onToggleFavourite, onUpdateCaption, isFavourite, onShare }) {
+function ImageCard({ image, onToggleFavourite, onUpdateCaption, isFavourite, onShare, onMove, onImgLoad }) {
     const [editing, setEditing] = useState(false);
     const [value, setValue] = useState(image.name || image.caption || "");
 
@@ -62,7 +62,7 @@ function ImageCard({ image, onToggleFavourite, onUpdateCaption, isFavourite, onS
     }
 
     return (
-        <div className="img_card polaroid" style={{ position: 'relative' }}>
+        <div className="img_card polaroid">
             <div className="polaroid-top">
                 {editing ? (
                     <div className="caption-edit">
@@ -83,14 +83,20 @@ function ImageCard({ image, onToggleFavourite, onUpdateCaption, isFavourite, onS
             </div>
 
             <div className="polaroid-body">
-                <img src={image.url} alt={image.name || ''} />
+                <img
+                    src={image.url}
+                    alt={image.name || ''}
+                    className="polaroid-img"
+                    onLoad={(e) => onImgLoad && onImgLoad(image.id, e.target.naturalWidth, e.target.naturalHeight)}
+                />
             </div>
 
-            <div className="polaroid-icons" style={{ position: 'absolute', bottom: 8, right: 8, display: 'flex', gap: 8 }}>
+            <div className="polaroid-footer">
+                <span className="drag-handle" title="Drag to reorder" aria-hidden="true">☰</span>
+                <button className="move-btn" onClick={() => onMove && onMove(image)} aria-label="Move image">⇅</button>
                 <button
                     className="share-btn"
                     onClick={() => (onShare ? onShare(image) : localShare())}
-                    style={{ background: 'transparent', border: 'none', fontSize: 18 }}
                     aria-label="Share image"
                 >
                     🔗
@@ -99,7 +105,6 @@ function ImageCard({ image, onToggleFavourite, onUpdateCaption, isFavourite, onS
                 <button
                     className="fav-btn"
                     onClick={() => onToggleFavourite && onToggleFavourite(image)}
-                    style={{ background: 'transparent', border: 'none', fontSize: 18 }}
                     aria-label={isFavourite ? 'Remove from favourites' : 'Add to favourites'}
                 >
                     {isFavourite ? '❤️' : '🤍'}

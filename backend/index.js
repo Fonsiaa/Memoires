@@ -6,7 +6,6 @@ import users from './routes/users.js';
 import session from 'express-session';
 import passport from 'passport';
 import authRoutes from './routes/auth.js';
-import commentsRoutes from './routes/comments.js';
 dotenv.config();
 
 
@@ -26,7 +25,6 @@ app.use(passport.session());
 
 app.use('/api/user', users)
 app.use('/auth', authRoutes)
-app.use('/api/comments', commentsRoutes)
 
 const dbURI = "MONGO_URI" in process.env ? process.env.MONGO_URI : "mongodb://localhost:27017/memoires";
 // const dbURI = "mongodb://localhost:27017"

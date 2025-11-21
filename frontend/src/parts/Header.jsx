@@ -95,7 +95,6 @@ function Navbar() {
 
         <ul className={`dropdown ${open ? 'open' : ''}`} role="menu" aria-label="Admin menu">
           <li role="none"><NavLink role="menuitem" to="/dashbd" className="nav-link" onClick={() => setOpen(false)}>Dashboard</NavLink></li>
-          <li role="none"><NavLink role="menuitem" to="/reviews" className="nav-link" onClick={() => setOpen(false)}>Reviews</NavLink></li>
           <li role="none"><NavLink role="menuitem" to="/profile" className="nav-link" onClick={() => setOpen(false)}>Uploads</NavLink></li>
           <li role="none"><NavLink role="menuitem" to="/auth" className="nav-link" onClick={() => setOpen(false)}>Login</NavLink></li>
         </ul>
