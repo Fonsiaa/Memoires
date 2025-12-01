@@ -124,7 +124,7 @@ function Home() {
                 
             </div>
 
-            <div className={containerClass}>
+            <div className="image-grid">
                 {filteredImages.map((image, idx) => (
                     <div className={'general'}
                         key={image.id}

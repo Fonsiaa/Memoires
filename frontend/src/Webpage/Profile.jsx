@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Upload, Image as ImageIcon, Trash2, Share2 } from 'lucide-react';
 import { Button, Card } from '../parts/UI';
-import '../styles/main.css';
+import '../styles/main.scss';
 
 const DEFAULT_USER = { name: 'Your Name', username: 'username', bannerUrl: null };
 const DEFAULT_CATS = ['Family','Friends','Events','Pets','Documents'];
@@ -245,8 +245,8 @@ function Profile() {
             <div className="profile-header">
                 <div className="profile-meta">
                     <div className="profile-name">
-                        <input value={user.name} onChange={e => updateName(e.target.value)} className="name-input" />
-                        <input value={user.username} onChange={e => updateUsername(e.target.value)} className="username-input" />
+                        <input value={user.name} onChange={e => updateName(e.target.value)} className="name-input" placeholder="Name" />
+                        <input value={user.username} onChange={e => updateUsername(e.target.value)} className="username-input" placeholder="@username" />
                     </div>
                 </div>
 

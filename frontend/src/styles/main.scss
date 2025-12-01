@@ -4,11 +4,8 @@
 @use "layout/profile"; // User profile page styles
 @use "layout/favourite"; // Favourite images page styles
 @use "layout/dash"; // Dashboard page styles
+@use "layout/polaroid"; // Polaroid image card styles
 
 * {
   font-family: "Fuzzy Bubbles";
 }
-
-/* Grid and card sizing to keep layout stable regardless of individual image sizes */
-/* Quilted grid and polaroid card styles moved to `layout/_home.scss` */
-/* See frontend/src/styles/layout/_home.scss */

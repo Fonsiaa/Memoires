@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@import "../variables";
 
 /* Profile page layout styles */
 .profile-page {
@@ -43,20 +43,25 @@
     }
 
     .profile-name {
+
       .name-input {
-        font-size: 20px;
+        font-size: 40px;
         font-weight: 600;
         border: none;
         margin-bottom: 4px;
         padding: 4px;
+        background-color: #1663d600;
       }
+
+      ::placeholder {
+          color: #d1d5db;
+        }
 
       .username-input {
         display: block;
-        font-size: 12px;
-        color: #6b7280;
+        font-size: 20px;
         border: none;
-        background: lightblue;
+        background-color: #1663d600;
       }
     }
 
@@ -111,13 +116,18 @@
         align-self: flex-end;
       }
     }
-
-    .no-uploads {
-      text-align: center;
-      color: #6b7280;
-      padding: 16px;
-    }
   }
+
+  .no-uploads {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 16px;
+      color: #fff;
+      border-radius: 6px;
+    }
 }
 
 /* Modal for category selection */

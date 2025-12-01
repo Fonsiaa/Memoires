@@ -10,10 +10,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");
 .home-page {
   padding: 1.5rem;
   background-color: #c5a787;
-  min-height: 100vh;
+  max-height: 100vh;
 }
 .home-page .home-toolbar {
   display: flex;
@@ -138,6 +140,102 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+}
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.image-grid > * {
+  display: block;
+  align-self: start;
+  box-sizing: border-box;
+}
+
+.img_card.polaroid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  vertical-align: top;
+  -moz-column-break-inside: avoid;
+       break-inside: avoid;
+}
+
+.polaroid-body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.polaroid-img {
+  width: 100%;
+  height: 180px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.polaroid-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 8px;
+}
+
+.polaroid-footer button {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.polaroid-footer .move-btn {
+  cursor: grab;
+}
+
+/* Drag handle and drag animations */
+.drag-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: transparent;
+  color: #444;
+  font-size: 16px;
+  margin-right: 6px;
+  cursor: grab;
+}
+
+.image-grid > * {
+  transition: transform 160ms ease, box-shadow 160ms ease, opacity 120ms ease;
+}
+
+.image-grid > *.dragging {
+  transform: scale(0.985);
+  opacity: 0.9;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+}
+
+.image-grid > *.drag-over {
+  transform: translateY(6px);
+  outline: 2px dashed rgba(0, 0, 0, 0.06);
+}
+
+@media (max-width: 640px) {
+  .image-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+  .polaroid-body {
+    height: 120px;
   }
 }
 .nav {
@@ -527,18 +625,24 @@ html, body {
   gap: 12px;
 }
 .profile-page .profile-header .profile-name .name-input {
-  font-size: 20px;
+  font-size: 40px;
   font-weight: 600;
   border: none;
   margin-bottom: 4px;
   padding: 4px;
+  background-color: rgba(22, 99, 214, 0);
+}
+.profile-page .profile-header .profile-name ::-moz-placeholder {
+  color: #d1d5db;
+}
+.profile-page .profile-header .profile-name ::placeholder {
+  color: #d1d5db;
 }
 .profile-page .profile-header .profile-name .username-input {
   display: block;
-  font-size: 12px;
-  color: #6b7280;
+  font-size: 20px;
   border: none;
-  background: lightblue;
+  background-color: rgba(22, 99, 214, 0);
 }
 .profile-page .profile-header .profile-actions {
   display: flex;
@@ -583,10 +687,15 @@ html, body {
 .profile-page .image-grid .image-item .delete-button {
   align-self: flex-end;
 }
-.profile-page .image-grid .no-uploads {
+.profile-page .no-uploads {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  color: #6b7280;
   padding: 16px;
+  color: #fff;
+  border-radius: 6px;
 }
 
 /* Modal for category selection */
@@ -881,6 +990,67 @@ html, body {
   font-size: 32px;
   font-weight: 700;
   color: #1a1a1a;
+}
+
+.img_card .polaroid {
+  background: #fff;
+}
+.img_card .caption-edit {
+  display: flex;
+  gap: 8px;
+}
+.img_card .caption-edit input {
+  flex: 1;
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.img_card .caption-edit button {
+  padding: 4px 8px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+}
+.img_card .caption-edit button:hover {
+  background: #ddd;
+}
+.img_card .caption-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.img_card .caption-display .polaroid-title {
+  font-weight: 500;
+}
+.img_card .caption-display .edit-caption {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 8px;
+}
+.img_card .polaroid-body .polaroid-img {
+  width: 100%;
+  border-radius: 4px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.img_card .polaroid-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+.img_card .polaroid-footer .drag-handle {
+  cursor: grab;
+}
+.img_card .polaroid-footer .move-btn,
+.img_card .polaroid-footer .share-btn,
+.img_card .polaroid-footer .fav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 * {
