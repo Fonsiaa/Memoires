@@ -1,13 +1,6 @@
 // auth.scss
-@import '../variables.scss';
+@import '../variables';
 
-$bg-gradient-start: #826B72;
-$bg-gradient-end: #F7dac1;
-$card-shadow: 0 12px 30px #d8b0a0; 
-$accent-gradient: linear-gradient(90deg, #ff7aa8 0%, #6eb7ff 100%);
-$muted: #9aa6bf;
-$white: #ffffff;
-$breakpoint-sm: 720px;
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -18,11 +11,10 @@ html, body { margin: 0; padding: 0; }
     align-items: center;
     justify-content: center;
     padding: 40px 20px;
-    background: linear-gradient(135deg, $bg-gradient-start 0%, $bg-gradient-end 100%);
+    background: linear-gradient(135deg, $primary-color 0%, $milk-brown 100%);
     font-family: Inter, Roboto, system-ui, -apple-system, "Segoe UI", Arial;
     -webkit-font-smoothing: antialiased;
     color: $white;
-    font-family: $text;
 }
 
 .auth-card {
@@ -33,7 +25,7 @@ html, body { margin: 0; padding: 0; }
   box-shadow: $card-shadow;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background: rgba(255,255,255,0.03);
+  background: $ted-brown;
   border: 1px solid rgba(255,255,255,0.06);
 }
 
@@ -71,7 +63,7 @@ html, body { margin: 0; padding: 0; }
       position: relative;
       display: flex;
       align-items: center;
-      background: rgba(255,255,255,0.03);
+      background: rgba(255, 255, 255, 0.364);
       border-radius: 10px;
       padding: 12px 14px;
       border: 1px solid rgba(255,255,255,0.04);
@@ -80,7 +72,7 @@ html, body { margin: 0; padding: 0; }
         font-family: $text;
       }
 
-      .icon { margin-right: 12px; color: rgba(255,255,255,0.9); display:inline-flex; align-items:center; }
+      .icon { margin-right: 12px; color: $dark-brown; display:inline-flex; align-items:center; }
       input {
         flex: 1;
         background: transparent;
@@ -100,7 +92,7 @@ html, body { margin: 0; padding: 0; }
       place-items: center;
       margin-left: 8px;
       cursor: pointer;
-      color: rgba(255,255,255,0.65);
+      color: $dark-brown;
       border: 0;
     }
 
@@ -114,7 +106,7 @@ html, body { margin: 0; padding: 0; }
       letter-spacing: 0.4px;
       background: $dark-brown;
       color: $white;
-      box-shadow: 0 6px 18px rgba(106, 158, 255, 0.26);
+      box-shadow: 0 6px 18px $dark-brown;
       display: inline-flex;
       gap: 10px;
       align-items: center;
@@ -226,13 +218,13 @@ html, body { margin: 0; padding: 0; }
     }
 
     input[type="checkbox"]:checked {
-        background: $accent-gradient;
+        background: $dark-brown;
         border: 0;
         box-shadow: 0 6px 14px rgba(102, 183, 255, 0.18);
     }
 
     .terms-text { 
-        color: blanchedalmond; 
+        color: $primary-color; 
         font-size: 13px; }
     }
 

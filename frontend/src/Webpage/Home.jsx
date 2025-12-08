@@ -11,8 +11,8 @@ const DEFAULT_IMAGES = [
     { id: 6, url: "https://tse3.mm.bing.net/th/id/OIP.z0v0ouUov54SMKX7SB5nugHaEU?w=1200&h=700&rs=1&pid=ImgDetMain&o=7&rm=3", name: "Wedding Ceremony", category: "Events" },
     { id: 7, url: "https://th.bing.com/th/id/R.4f25a5c437a7cd52817a4f13a484b4a5?rik=kBzmMqJZqz7Gmw&riu=http%3a%2f%2fs1.bwallpapers.com%2fwallpapers%2f2013%2f12%2f26%2fgolden-retriever-puppy_061645.jpg&ehk=4%2f0qrVKTHKXiGYaKzJcaiSJ4WVd8XyoxZbpP%2fCZnCUo%3d&risl=&pid=ImgRaw&r=0", name: "Golden Pup", category: "Pets" },
     { id: 8, url: "https://i.pinimg.com/736x/bd/75/81/bd75815f05e6e2ea657405f30fbdf9ac.jpg", name: "Sleepy Kitten", category: "Pets" },
-    { id: 9, url: "https://source.unsplash.com/featured/?documents,papers", name: "Important Document", category: "Documents" },
-    { id: 10, url: "https://source.unsplash.com/featured/?office,notes", name: "Work Notes", category: "Documents" }
+    { id: 9, url: "https://media.istockphoto.com/photos/the-extreamely-close-up-report-paper-stacking-of-office-working-picture-id908154596?k=20&m=908154596&s=612x612&w=0&h=qjBudCNx5jRdJibFvoqcMXBDJC7qj3E45fxAo8puXoM=", name: "Important Document", category: "Documents" },
+    { id: 10, url: "https://img.huffingtonpost.es/uploads/2025/03/13/cartas-amontonadas-en-una-imagen-de-archivo.jpeg", name: "Work Notes", category: "Documents" }
 ];
 
 function Home() {
@@ -22,7 +22,6 @@ function Home() {
         try {
             const raw = localStorage.getItem('feedImages');
             const parsed = raw ? JSON.parse(raw) : DEFAULT_IMAGES;
-            // normalize categories -> array
             return parsed.map(img => ({ ...img, categories: img.categories || (img.category ? [img.category] : []), colSpan: img.colSpan || 1, rowSpan: img.rowSpan || 1 }));
         } catch (e) {
             return DEFAULT_IMAGES.map(img => ({ ...img, categories: img.category ? [img.category] : [], colSpan: 1, rowSpan: 1 }));
@@ -93,16 +92,6 @@ function Home() {
         setFeedImages(prev => prev.map(img => img.id === id ? { ...img, name: newName } : img));
         // also keep favourites in sync if needed
         setFavourites(prev => prev.map(f => f.id === id ? { ...f, name: newName } : f));
-    }
-
-    function handleAddImage() {
-        const url = window.prompt('Image URL (absolute or relative to public):');
-        if (!url) return;
-        const name = window.prompt('Image name/caption:') || 'Untitled';
-        const category = window.prompt('Category (e.g. Family, Friends):') || 'Uncategorized';
-        const id = Date.now();
-        const newImg = { id, url, name, category };
-        setFeedImages(prev => [newImg, ...prev]);
     }
 
     // Always use the responsive quilted grid container.

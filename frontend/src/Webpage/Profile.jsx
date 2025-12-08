@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Upload, Image as ImageIcon, Trash2, Share2 } from 'lucide-react';
+import { Upload, Image as ImageIcon, Trash2, Share2, Plus } from 'lucide-react';
 import { Button, Card } from '../parts/UI';
 import '../styles/main.scss';
 
@@ -40,12 +40,10 @@ function Profile() {
 
     const [user, setUser] = useState(readUserProfile());
     const [feedImages, setFeedImages] = useState(() => {
-        // normalize any old images that used `category` instead of `categories`
         const raw = readFeedImages();
         return raw.map(img => ({ ...img, categories: img.categories || (img.category ? [img.category] : []) }));
     });
 
-    // images uploaded by this user (owner === 'me')
     const userImages = feedImages.filter(i => i.owner === 'me');
 
     const [uploadQueue, setUploadQueue] = useState([]);
@@ -64,7 +62,6 @@ function Profile() {
         try { window.dispatchEvent(new Event('feedImagesUpdated')); } catch (e) {}
     }, [feedImages]);
 
-    // keep availableCats in sync with feedImages
     useEffect(() => {
         try {
             const set = new Set(DEFAULT_CATS);
@@ -73,8 +70,13 @@ function Profile() {
         } catch (e) {}
     }, [feedImages]);
 
-    function triggerFilePick() { fileInputRef.current && fileInputRef.current.click(); }
-    function triggerBannerPick() { bannerInputRef.current && bannerInputRef.current.click(); }
+    function triggerFilePick() { 
+        fileInputRef.current && fileInputRef.current.click(); 
+    }
+
+    function triggerBannerPick() { 
+        bannerInputRef.current && bannerInputRef.current.click(); 
+    }
 
     function handleBannerChange(e) {
         const file = e.target.files && e.target.files[0];
@@ -91,27 +93,26 @@ function Profile() {
     function handleFilesSelected(e) {
         const files = Array.from(e.target.files || []);
         if (files.length === 0) return;
-        // start interactive category assignment flow
         setUploadQueue(files);
         setNewImgsBuffer([]);
         setProcessingIndex(0);
-        // setup preview for first file
         const url = URL.createObjectURL(files[0]);
         setPreviewUrl(url);
         e.target.value = '';
     }
 
     useEffect(() => {
-        // revoke previewUrl when processingIndex changes or component unmounts
         return () => {
-            if (previewUrl) { try { URL.revokeObjectURL(previewUrl); } catch (e) {} }
+            if (previewUrl) { 
+                try { URL.revokeObjectURL(previewUrl); } catch (e) {} 
+            }
         };
     }, [previewUrl]);
 
     function toggleCategory(cat) {
         setSelectedCats(prev => {
             if (prev.includes(cat)) return prev.filter(c => c !== cat);
-            if (prev.length >= 5) return prev; // limit
+            if (prev.length >= 5) return prev;
             return [...prev, cat];
         });
     }
@@ -140,23 +141,24 @@ function Profile() {
                 owner: 'me',
                 categories: selectedCats.length ? selectedCats : ['Uncategorized']
             };
-            // append to buffer and either continue or finish using the new buffer
             const next = processingIndex + 1;
             setNewImgsBuffer(prev => {
                 const nextBuf = [...prev, newImg];
                 if (next >= uploadQueue.length) {
-                    // finished - append to feedImages using the fully constructed buffer
                     setFeedImages(prevImgs => [...nextBuf, ...prevImgs]);
-                    // clean up
                     setUploadQueue([]);
                     setProcessingIndex(-1);
                     setSelectedCats([]);
                     setPreviewUrl(null);
                     return [];
                 }
-                // continue with next file
                 setProcessingIndex(next);
-                try { const nextUrl = URL.createObjectURL(uploadQueue[next]); setPreviewUrl(nextUrl); } catch (e) { setPreviewUrl(null); }
+                try { 
+                    const nextUrl = URL.createObjectURL(uploadQueue[next]); 
+                    setPreviewUrl(nextUrl); 
+                } catch (e) { 
+                    setPreviewUrl(null); 
+                }
                 setSelectedCats([]);
                 return nextBuf;
             });
@@ -169,7 +171,9 @@ function Profile() {
         setProcessingIndex(-1);
         setNewImgsBuffer([]);
         setSelectedCats([]);
-        if (previewUrl) { try { URL.revokeObjectURL(previewUrl); } catch (e) {} }
+        if (previewUrl) { 
+            try { URL.revokeObjectURL(previewUrl); } catch (e) {} 
+        }
         setPreviewUrl(null);
     }
 
@@ -179,10 +183,8 @@ function Profile() {
     }
 
     async function shareImage(image) {
-        // Try Web Share API with file if possible (for data URLs we convert to Blob)
         try {
             if (navigator.share) {
-                // If data URL, fetch it to get a blob
                 if (image.url && image.url.startsWith('data:')) {
                     const res = await fetch(image.url);
                     const blob = await res.blob();
@@ -193,28 +195,21 @@ function Profile() {
                         return;
                     }
                 }
-
-                // Try sharing URL/text fallback
                 await navigator.share({ title: image.name, text: image.name, url: image.url });
                 return;
             }
         } catch (e) {
-            // continue to fallback options
             console.warn('Web Share failed', e);
         }
 
-        // Fallback: copy image url/data to clipboard
         if (navigator.clipboard && image.url) {
             try {
                 await navigator.clipboard.writeText(image.url);
                 alert('Image copied to clipboard. Paste it into your chat or post.');
                 return;
-            } catch (e) {
-                // ignore
-            }
+            } catch (e) {}
         }
 
-        // Final fallback: download the image to let the user share/save it
         try {
             const a = document.createElement('a');
             a.href = image.url;
@@ -227,36 +222,19 @@ function Profile() {
         }
     }
 
-    function updateName(newName) { setUser(prev => ({ ...prev, name: newName })); }
-    function updateUsername(newUsername) { setUser(prev => ({ ...prev, username: newUsername })); }
+    function updateName(newName) { 
+        setUser(prev => ({ ...prev, name: newName })); 
+    }
+    
+    function updateUsername(newUsername) { 
+        setUser(prev => ({ ...prev, username: newUsername })); 
+    }
 
     return (
         <div className="profile-page">
-            <div className="profile-banner" style={{ backgroundImage: user.bannerUrl ? `url(${user.bannerUrl})` : 'none' }}>
-                {!user.bannerUrl && (
-                    <div className="banner-placeholder">No banner set</div>
-                )}
-                <div className="banner-actions">
-                    <Button variant="secondary" onClick={triggerBannerPick}><Upload size={14}/>Upload</Button>
-                    <input ref={bannerInputRef} type="file" accept="image/*" style={{display:'none'}} onChange={handleBannerChange} />
-                </div>
-            </div>
-
-            <div className="profile-header">
-                <div className="profile-meta">
-                    <div className="profile-name">
-                        <input value={user.name} onChange={e => updateName(e.target.value)} className="name-input" placeholder="Name" />
-                        <input value={user.username} onChange={e => updateUsername(e.target.value)} className="username-input" placeholder="@username" />
-                    </div>
-                </div>
-
-                <div className="profile-actions">
-                    <Button variant="primary" onClick={triggerFilePick}><Upload size={14}/>Post</Button>
-                    <input ref={fileInputRef} type="file" accept="image/*" multiple style={{display:'none'}} onChange={handleFilesSelected} />
-                </div>
-            </div>
-
-            {/* Category selection modal for queued uploads */}
+            {/* REMOVED: The separate "Post" button from here */}
+            
+            {/* Category selection modal */}
             {processingIndex >= 0 && processingIndex < uploadQueue.length && (
                 <div className="modal-overlay">
                     <div className="modal-box">
@@ -283,7 +261,9 @@ function Profile() {
                                     <input placeholder="Add custom category" id="customCatInput" />
                                     <button onClick={() => {
                                         const el = document.getElementById('customCatInput');
-                                        if (!el) return; addCustomCategory(el.value.trim()); el.value = '';
+                                        if (!el) return; 
+                                        addCustomCategory(el.value.trim()); 
+                                        el.value = '';
                                     }}>Add</button>
                                 </div>
                                 <p className="hint">Selected: {selectedCats.length} / 5</p>
@@ -292,7 +272,7 @@ function Profile() {
 
                         <div className="modal-actions">
                             <Button variant="primary" onClick={confirmCategoriesForCurrent}>Confirm</Button>
-                            <Button variant="secondary" onClick={() => { /* skip categories for this image */ setSelectedCats([]); confirmCategoriesForCurrent(); }}>Skip</Button>
+                            <Button variant="secondary" onClick={() => { setSelectedCats([]); confirmCategoriesForCurrent(); }}>Skip</Button>
                             <Button variant="danger" onClick={cancelCategoryFlow}>Cancel</Button>
                         </div>
                     </div>
@@ -301,13 +281,38 @@ function Profile() {
 
             <Card title={`My Uploads (${userImages.length})`}>
                 {userImages.length === 0 ? (
-                    <div className="no-uploads">
-                        <ImageIcon size={48} />
-                        <p>No images uploaded yet.</p>
-                        <p>Use the 'Upload Images' button to add pictures from your device.</p>
+                    // CLICKABLE UPLOAD BUTTON CARD
+                    <div 
+                        className="upload-card-empty" 
+                        onClick={triggerFilePick}
+                        style={{ cursor: 'pointer' }}
+                    >
+                        <div className="upload-card-content">
+                            <div className="upload-icon-wrapper">
+                                <Plus size={48} className="upload-icon" />
+                            </div>
+                            <p className="upload-title">No images uploaded yet</p>
+                            <p className="upload-subtitle">Click here or drag & drop to add pictures from your device</p>
+                            <Button variant="primary" className="upload-button">
+                                <Upload size={16} /> Upload Images
+                            </Button>
+                        </div>
                     </div>
                 ) : (
                     <div className="image-grid profile-grid">
+                        {/* ADD UPLOAD CARD AT THE BEGINNING */}
+                        <div 
+                            className="upload-card-with-images" 
+                            onClick={triggerFilePick}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <div className="upload-card-inner">
+                                <Plus size={32} />
+                                <span>Upload More</span>
+                            </div>
+                        </div>
+                        
+                        {/* Existing images */}
                         {userImages.map(image => (
                             <div key={image.id} className="image-item">
                                 <img src={image.url} alt={image.name} onError={(e)=>{e.target.onerror=null; e.target.src='https://placehold.co/400x300/e5e7eb/4b5563?text=Error'}} />
@@ -315,12 +320,24 @@ function Profile() {
                                     <p className="img-name" title={image.name}>{image.name}</p>
                                     <p className="img-meta">{formatFileSize(image.size)} • {new Date(image.uploadedAt).toLocaleDateString()}</p>
                                 </div>
-                                <Button variant="danger" onClick={() => handleDelete(image.id)} className="delete-button"><Trash2 size={14} /> Delete</Button>
+                                <Button variant="danger" onClick={() => handleDelete(image.id)} className="delete-button">
+                                    <Trash2 size={14} /> Delete
+                                </Button>
                             </div>
                         ))}
                     </div>
                 )}
             </Card>
+
+            {/* Hidden file input */}
+            <input 
+                ref={fileInputRef} 
+                type="file" 
+                accept="image/*" 
+                multiple 
+                style={{display:'none'}} 
+                onChange={handleFilesSelected} 
+            />
         </div>
     );
 }

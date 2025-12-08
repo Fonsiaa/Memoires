@@ -30,7 +30,6 @@ return (
             </div>
             <div className="metric-value">{impressionsCount}</div>
             <div className="metric-label">Impressions</div>
-            <div className="metric-change negative">● -80.99%</div>
         </div>
 
         <div className="metric-card">
@@ -39,7 +38,6 @@ return (
             </div>
             <div className="metric-value">{engagementsCount}</div>
             <div className="metric-label">Engagements</div>
-            <div className="metric-change positive">▲ 29.99%</div>
         </div>
 
         <div className="metric-card">
@@ -48,7 +46,6 @@ return (
             </div>
             <div className="metric-value">{conversionRateCount}</div>
             <div className="metric-label">Conversion Rate</div>
-            <div className="metric-change positive">▲ 35.29%</div>
         </div>
     </div>
 
@@ -75,13 +72,12 @@ return (
         <div className="chart-card">
           <div className="card-header">
             <h2 className="section-title">Conversion Rate</h2>
-            <MoreHorizontal size={20} color="#ccc" />
           </div>
           <div className="conversion-content">
             <div className="conversion-left">
               <h3 className="conversion-title">Conversion Per Ad</h3>
               <p className="conversion-text">
-                Lorem Ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eleifend eget dui non fringilla. Ut gravida nulla nec elit suscipit, ac scelerisque eros rhoncus. Donec eleifend auctor posuere.
+                The rate of users who took a desired action after clicking on an ad. This includes purchases, sign-ups, or downloads. A higher conversion rate indicates effective ad targeting and compelling content.
               </p>
               <div className="legend">
                 <span className="legend-item">
@@ -110,7 +106,7 @@ return (
                     cy="70"
                     r="60"
                     fill="none"
-                    stroke="#FF3B30"
+                    stroke="#301f17"
                     strokeWidth="12"
                     strokeDasharray="377"
                     strokeDashoffset="200"

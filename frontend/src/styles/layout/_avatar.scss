@@ -1,0 +1,172 @@
+@import '../variables';
+
+// Avatar styles
+.avatar-container {
+    position: relative;
+    display: inline-block;
+    z-index: 100;
+}
+
+.nav-banner-link {
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+
+    .avatar-wrapper {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        transition: all 0.2s ease;
+        border: 2px solid #e5e7eb;
+        background: #f9fafb;
+    
+        &:hover {
+            border-color: $primary-color;
+            transform: scale(1.05);
+        }
+    
+        .nav-banner {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }   
+    
+    .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 28px;
+    }
+    
+    .avatar-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        color: white;
+        
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+    }
+    
+        &:hover .avatar-overlay {
+            opacity: 1;
+        }
+    }
+}
+
+// Avatar options dropdown
+.avatar-options-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 280px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    animation: slideDown 0.2s ease;
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .dropdown-header {
+        padding: 16px;
+        border-bottom: 1px solid #e5e7eb;
+    
+        h4 {
+            margin: 0 0 4px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+        }
+    
+        p {
+        margin: 0;
+        font-size: 14px;
+        color: #6b7280;
+        }
+    } 
+
+    .dropdown-actions {
+        padding: 12px;
+        
+        .dropdown-btn {
+            width: 100%;
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            margin-bottom: 8px;
+            text-decoration: none;
+
+        &.upload {
+            background-color: $milk-brown;
+            color: white;
+        
+            &:hover {
+                background-color: $light-brown   ;
+            }
+        }
+
+        &.remove {
+            background-color: #f3f4f6;
+            color: #dc2626;
+        
+        &:hover {
+            background-color: #fee2e2;
+            }
+        }
+
+        &.profile {
+            background-color: #f3f4f6;
+            color: #374151;
+        
+        &:hover {
+            background-color: #e5e7eb;
+            }
+        }
+
+        &.cancel {
+            background-color: transparent;
+            color: #6b7280;
+            border: 1px solid #d1d5db;
+        
+            &:hover {
+                background-color: #f9fafb;
+                }
+            }
+        }
+    }
+}
+

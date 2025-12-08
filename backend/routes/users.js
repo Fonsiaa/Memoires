@@ -1,48 +1,82 @@
 import express from 'express';
-import User from '../Models/user.js';   
+import User from '../models/user.js';  // Note: lowercase 'models'
 
 const router = express.Router();
 
-// Create a new user
 router.post('/', async (req, res) => {
     const { name, email, password } = req.body;
+    
     try {
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: 'User already exists' });
+        }
+        
         const newUser = new User({ name, email, password });
         await newUser.save();
-        res.status(201).json(newUser);
+        
+        const userResponse = {
+            _id: newUser._id,
+            name: newUser.name,
+            email: newUser.email,
+            createdAt: newUser.createdAt
+        };
+        
+        res.status(201).json(userResponse);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 });
 
-// Login route
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
+    
     try {
-    const user = await User.findOne({ email, password });
-    if (!user) {
-        return res.status(401).json({ message: 'Invalid email or password' });
-    }
-        res.json({ user });
+        // Find user by email only
+        const user = await User.findOne({ email });
+        
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+        
+        // Compare password using bcrypt
+        const isPasswordValid = await user.comparePassword(password);
+        
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+        
+        // Don't send password back
+        const userResponse = {
+            _id: user._id,
+            name: user.name,
+            email: user.email
+        };
+        
+        res.json({ 
+            message: 'Login successful',
+            user: userResponse 
+        });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        console.error('Login error:', err);
+        res.status(500).json({ message: 'Server error during login' });
     }
 });
 
-// Get all users
 router.get('/', async (req, res) => {
     try {
-        const users = await User.find();
+        const users = await User.find().select('-password'); // Exclude password field
         res.json(users);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Get a user by ID
+
 router.get('/:id', async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
+        const user = await User.findById(req.params.id).select('-password');
         if (!user) return res.status(404).json({ error: 'User not found' });
         res.json(user);
     } catch (error) {
@@ -50,10 +84,18 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// Update a user
 router.put('/:id', async (req, res) => {
     try {
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        // If password is being updated, it will be hashed by the pre-save middleware
+        const user = await User.findByIdAndUpdate(
+            req.params.id, 
+            req.body, 
+            { 
+                new: true,
+                runValidators: true  // Run schema validators on update
+            }
+        ).select('-password');
+        
         if (!user) return res.status(404).json({ error: 'User not found' });
         res.json(user);
     } catch (error) {
@@ -61,12 +103,11 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// Delete a user
 router.delete('/:id', async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);
         if (!user) return res.status(404).json({ error: 'User not found' });
-        res.json({ message: 'User deleted' });
+        res.json({ message: 'User deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
