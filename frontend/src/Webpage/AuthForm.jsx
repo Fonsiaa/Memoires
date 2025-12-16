@@ -220,15 +220,6 @@ export function AuthForm({ setUser, showToast }) {
                                 <span className="s-icon">G</span>
                                 <span>Gmail</span>
                             </button>
-                            <button 
-                                type="button" 
-                                className="social facebook" 
-                                onClick={() => { window.location.href = 'http://localhost:2824/auth/facebook'; }}
-                                disabled={isLoading}
-                            >
-                                <span className="s-icon">f</span>
-                                <span>Facebook</span>
-                            </button>
                         </div>
 
                         <label className="terms">

@@ -99,6 +99,16 @@ function Navbar() {
     }
   };
 
+  // Handle logout
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('currentUser');
+    try {
+      window.dispatchEvent(new Event('userUpdated'));
+    } catch (e) {}
+    setOpen(false);
+  };
+
   // Close dropdowns when clicking outside
   useEffect(() => {
     function onDocClick(e) {
@@ -294,8 +304,26 @@ function Navbar() {
 
           <ul className={`dropdown ${open ? 'open' : ''}`} role="menu" aria-label="Admin menu">
             <li role="none"><NavLink role="menuitem" to="/dashbd" className="nav-link" onClick={() => setOpen(false)}>Dashboard</NavLink></li>
-            <li role="none"><NavLink role="menuitem" to="/profile" className="nav-link" onClick={() => setOpen(false)}>Uploads</NavLink></li>
-            <li role="none"><NavLink role="menuitem" to="/auth" className="nav-link" onClick={() => setOpen(false)}>Login</NavLink></li>
+            <li role="none">
+              {user ? (
+                <button
+                  role="menuitem"
+                  className="nav-link"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              ) : (
+                <NavLink
+                  role="menuitem"
+                  to="/auth"
+                  className="nav-link"
+                  onClick={() => setOpen(false)}
+                >
+                  Login
+                </NavLink>
+              )}
+            </li>
           </ul>
         </div>
       </nav>

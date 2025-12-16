@@ -4,6 +4,10 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import users from './routes/users.js';
 
+//for the google bakckend
+import session from 'express-session';
+import passport from 'passport';
+
 dotenv.config();
 
 const app = express();
