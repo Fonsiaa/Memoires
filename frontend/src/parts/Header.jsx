@@ -308,7 +308,7 @@ function Navbar() {
               {user ? (
                 <button
                   role="menuitem"
-                  className="nav-link"
+                  className="nav-logout"
                   onClick={handleLogout}
                 >
                   Logout

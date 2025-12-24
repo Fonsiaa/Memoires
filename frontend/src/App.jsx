@@ -33,10 +33,10 @@ function App() {
         <Router>
             <Navbar />
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home currentUser={currentUser} />} />
                 <Route path="/favourites" element={<Favourite />} />
                 <Route path="/dashbd" element={<Dashboard />} />
-                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile" element={<Profile currentUser={currentUser} />} />
                 <Route path="/auth" element={<AuthForm setUser={(u) => { setCurrentUser(u); localStorage.setItem('currentUser', JSON.stringify(u)); }} showToast={showToast} />} />
             </Routes>
         </Router>

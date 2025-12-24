@@ -1,4 +1,4 @@
-@import '../variables';
+@use '../variables' as *;
 
 /* Profile page layout styles */
 .profile-page {
@@ -95,6 +95,7 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
     min-height: 320px;
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     cursor: pointer;
 
@@ -167,6 +168,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 
     &:hover {
@@ -216,6 +218,7 @@
       overflow: hidden;
       background: rgba(255, 255, 255, 0.95);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
@@ -304,6 +307,7 @@
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
 
   .modal-box {
@@ -503,6 +507,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 2rem;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   

@@ -13,10 +13,10 @@ const DEFAULT_IMAGES = [
     { id: 8, url: "https://i.pinimg.com/736x/bd/75/81/bd75815f05e6e2ea657405f30fbdf9ac.jpg", name: "Sleepy Kitten", category: "Pets" },
 ];
 
-function Home() {
+function Home({ currentUser }) {
     const [selectedCategory, setSelectedCategory] = useState('All');
 
-    const [feedImages, setFeedImages] = useState(() => {
+    const [allFeedImages, setAllFeedImages] = useState(() => {
         try {
             const raw = localStorage.getItem('feedImages');
             const parsed = raw ? JSON.parse(raw) : DEFAULT_IMAGES;
@@ -25,6 +25,13 @@ function Home() {
             return DEFAULT_IMAGES.map(img => ({ ...img, categories: img.category ? [img.category] : [], colSpan: 1, rowSpan: 1 }));
         }
     });
+
+    const displayedFeedImages = useMemo(() => {
+        if (!currentUser) {
+            return allFeedImages.filter(img => !img.owner);
+        }
+        return allFeedImages;
+    }, [allFeedImages, currentUser]);
 
     const [favourites, setFavourites] = useState(() => {
         try {
@@ -37,8 +44,8 @@ function Home() {
 
     // persist feedImages and favourites locally so renames and new images survive reloads
     useEffect(() => {
-        try { localStorage.setItem('feedImages', JSON.stringify(feedImages)); } catch (e) {}
-    }, [feedImages]);
+        try { localStorage.setItem('feedImages', JSON.stringify(allFeedImages)); } catch (e) {}
+    }, [allFeedImages]);
 
     useEffect(() => {
         try { localStorage.setItem('favourites', JSON.stringify(favourites)); } catch (e) {}
@@ -47,16 +54,16 @@ function Home() {
     const categories = useMemo(() => {
         const defaultCats = ['Family', 'Friends', 'Events', 'Pets', 'Documents'];
         const set = new Set();
-        feedImages.forEach(i => (i.categories || []).forEach(c => c && set.add(c)));
+        displayedFeedImages.forEach(i => (i.categories || []).forEach(c => c && set.add(c)));
         defaultCats.forEach(c => set.add(c));
         // Remove 'Random' filter if present
         const cats = Array.from(set).filter(c => c !== 'Random');
         return ['All', ...cats];
-    }, [feedImages]);
+    }, [displayedFeedImages]);
 
     const filteredImages = selectedCategory === 'All'
-        ? feedImages
-        : feedImages.filter(img => (img.categories && img.categories.includes(selectedCategory)) || img.category === selectedCategory);
+        ? displayedFeedImages
+        : displayedFeedImages.filter(img => (img.categories && img.categories.includes(selectedCategory)) || img.category === selectedCategory);
     
     useEffect(() => {
         function onFeedUpdated() {
@@ -64,7 +71,7 @@ function Home() {
                 const raw = localStorage.getItem('feedImages');
                 const parsed = raw ? JSON.parse(raw) : DEFAULT_IMAGES;
                 const normalized = parsed.map(img => ({ ...img, categories: img.categories || (img.category ? [img.category] : []), colSpan: img.colSpan || 1, rowSpan: img.rowSpan || 1 }));
-                setFeedImages(normalized);
+                setAllFeedImages(normalized);
             } catch (e) {
                 /* ignore parse errors */
             }
@@ -73,10 +80,7 @@ function Home() {
         return () => window.removeEventListener('feedImagesUpdated', onFeedUpdated);
     }, []);
 
-    // persist feedImages whenever it changes
-    useEffect(() => {
-        try { localStorage.setItem('feedImages', JSON.stringify(feedImages)); } catch (e) {}
-    }, [feedImages]);
+
 
     function handleToggleFavourite(image) {
         setFavourites(prev => {

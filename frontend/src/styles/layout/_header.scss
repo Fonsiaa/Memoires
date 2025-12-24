@@ -1,5 +1,5 @@
 //using the variables from _variables.scss
-@import '../variables.scss';
+@use '../variables' as *;
 
 .nav {
     display: flex;
@@ -33,6 +33,19 @@
         align-items: center;
         justify-content: center;
         width: 100%;       
+    }
+
+    &-logout {
+        text-decoration: none;
+        font-weight: 600;
+        background-color: transparent;
+        border: none;
+
+        &:hover {
+            color: $dark-brown;
+            background-color: $primary-color;
+            border-radius: 10px;
+        }
     }
 
     &-link {

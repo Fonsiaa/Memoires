@@ -1,5 +1,5 @@
 //using the variables from _variables.scss
-@import "../variables";
+@use "../variables" as *;
 
 .home-page {
   padding: 1.5rem;

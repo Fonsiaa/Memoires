@@ -1,20 +1,6 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");
 .home-page {
   padding: 1.5rem;
   background-color: #c5a787;
@@ -272,6 +258,17 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+.nav-logout {
+  text-decoration: none;
+  font-weight: 600;
+  background-color: transparent;
+  border: none;
+}
+.nav-logout:hover {
+  color: #301f17;
+  background-color: #c5a787;
+  border-radius: 10px;
 }
 .nav-link {
   text-decoration: none;
@@ -675,7 +672,7 @@ html, body {
   text-align: center;
   min-height: 320px;
   -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   cursor: pointer;
 }
 .profile-page .upload-card-empty:hover {
@@ -737,7 +734,7 @@ html, body {
   justify-content: center;
   cursor: pointer;
   -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 .profile-page .upload-card-with-images:hover {
   border-color: #fff;
@@ -778,7 +775,7 @@ html, body {
   background: rgba(255, 255, 255, 0.95);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .profile-page .image-grid .image-item:hover {
@@ -856,7 +853,7 @@ html, body {
   justify-content: center;
   z-index: 9999;
   -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
 }
 .modal-overlay .modal-box {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -1032,7 +1029,7 @@ html, body {
   border-radius: 16px;
   padding: 2rem;
   -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 .card .card-title {
@@ -1517,8 +1514,6 @@ html, body {
   align-items: center;
   justify-content: center;
   z-index: 10000;
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
   animation: fadeIn 0.2s ease;
 }
 

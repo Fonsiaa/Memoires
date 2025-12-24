@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { LogIn, UserPlus, Eye, Mail, Key } from "lucide-react";
 import "../styles/main.scss";
 
@@ -6,6 +7,7 @@ import "../styles/main.scss";
 const API_BASE_URL = 'http://localhost:2824/api';
 
 export function AuthForm({ setUser, showToast }) {
+    const navigate = useNavigate();
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -38,6 +40,7 @@ export function AuthForm({ setUser, showToast }) {
                 window.dispatchEvent(new Event("userUpdated"));
             } catch (e) {}
             showToast(`Welcome back, ${data.user.name}!`);
+            navigate('/');
         } catch (err) {
             showToast(err.message, "error");
             console.error("Login error:", err);
@@ -68,6 +71,7 @@ export function AuthForm({ setUser, showToast }) {
             } catch (e) {}
             showToast("Account created successfully!");
             setIsLogin(true);
+            navigate('/');
         } catch (err) {
             showToast(err.message, "error");
             console.error("Signup error:", err);
@@ -105,6 +109,7 @@ export function AuthForm({ setUser, showToast }) {
                 if (typeof showToast === 'function') showToast(`Welcome, ${user.name}!`);
                 const clean = window.location.pathname;
                 window.history.replaceState({}, document.title, clean);
+                navigate('/');
             }
         } catch (e) {
             console.error("Error parsing user from URL:", e);

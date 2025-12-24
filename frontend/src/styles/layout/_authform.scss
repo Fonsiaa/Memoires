@@ -1,5 +1,5 @@
 // auth.scss
-@import '../variables';
+@use '../variables' as *;
 
 
 * { box-sizing: border-box; }

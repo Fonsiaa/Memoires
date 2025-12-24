@@ -34,7 +34,7 @@ function formatFileSize(bytes) {
     return (bytes / Math.pow(k,i)).toFixed(2) + ' ' + sizes[i] || 'B';
 }
 
-function Profile() {
+function Profile({ currentUser }) {
     const fileInputRef = useRef(null);
     const bannerInputRef = useRef(null);
 
@@ -44,7 +44,7 @@ function Profile() {
         return raw.map(img => ({ ...img, categories: img.categories || (img.category ? [img.category] : []) }));
     });
 
-    const userImages = feedImages.filter(i => i.owner === 'me');
+    const userImages = feedImages.filter(i => i.owner === (currentUser?._id || 'me'));
 
     const [uploadQueue, setUploadQueue] = useState([]);
     const [processingIndex, setProcessingIndex] = useState(-1);
@@ -138,7 +138,7 @@ function Profile() {
                 name,
                 size: file.size,
                 uploadedAt: Date.now(),
-                owner: 'me',
+                owner: currentUser?._id || 'me',
                 categories: selectedCats.length ? selectedCats : ['Uncategorized']
             };
             const next = processingIndex + 1;
