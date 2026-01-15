@@ -46,11 +46,21 @@ export default function MapApp() {
                 const destinationsRes = await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(overpassQuery)}`);
                 const destinationsData = await destinationsRes.json();
 
-                const realDestinations = destinationsData.elements
-                    .map(el => {
-                        return el.tags["name:en"] || el.tags.name;
+                const realDestinations = await Promise.all(
+                    destinationsData.elements.map(async (el) => {
+                        if (el.tags["name:en"]) return el.tags["name:en"];
+                    
+                        try {
+                            const translateRes = await fetch(
+                                `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${el.lat}&lon=${el.lon}&accept-language=en`
+                            );
+                            const translateData = await translateRes.json();
+                            return translateData.name || el.tags.name;
+                        } catch (e) {
+                            return el.tags.name;
+                        }
                     })
-                    .filter(name => name !== undefined);
+                );
 
                 const finalDestinations = realDestinations.length > 0 
                     ? realDestinations 
