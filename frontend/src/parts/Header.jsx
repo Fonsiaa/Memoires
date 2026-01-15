@@ -31,8 +31,8 @@ function Navbar() {
   const getAvatarColor = () => {
     if (!user?.name) return '#4f46e5';
     const colors = [
-      '#4f46e5', '#0ea5e9', '#10b981', '#f59e0b',
-      '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6',
+      '#af6746ff', '#c8c195ff', '#ffbb33ff', '#462603ff',
+      '#67537fff', '#30240eff', '#e1be66ff', '#835812ff',
     ];
     const nameSum = user.name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
     return colors[nameSum % colors.length];
@@ -292,6 +292,7 @@ function Navbar() {
       <nav className="nav-links">
         <NavLink to="/" end className="nav-link">Home</NavLink>
         <NavLink to="/favourites" className="nav-link">Favourites</NavLink>
+        <NavLink to="/map" className="nav-link">Map</NavLink>
 
         {/* Admin dropdown */}
         <div

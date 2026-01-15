@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import '../styles/main.scss';
 
 const UserList = () => {
@@ -21,8 +22,6 @@ const UserList = () => {
 
     const handleDelete = async () => {
         try {
-            // We pass the password in the request body
-            // Note: DELETE requests with bodies sometimes require specific config in axios
             await axios.post(`http://localhost:2824/api/users/delete-confirm/${selectedUserId}`, {
                 password: confirmPassword
             });

@@ -10,9 +10,12 @@ html, body {
     padding: 2rem;
     max-width: 800px;
     margin: 0 auto;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: $dark-brown;
+    border-radius: $card-radius;
+    color: wheat;
     
-    h2 { color: black; 
+    h2,text { 
+        color: rgb(255, 255, 255); 
         padding-bottom: 1rem; }
 
 .user-grid {

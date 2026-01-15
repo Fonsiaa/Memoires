@@ -210,7 +210,7 @@ export function AuthForm({ setUser, showToast }) {
 
                 {/* Right side - social signup */}
                 <div className="auth-right">
-                    <img src="" alt="" />
+                    <img src="https://png.pngtree.com/background/20230528/original/pngtree-many-old-photos-laying-on-a-wood-floor-picture-image_2783764.jpg" alt="picore" />
                 </div>
             </div>
 

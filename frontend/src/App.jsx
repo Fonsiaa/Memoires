@@ -7,6 +7,7 @@ import { AuthForm } from "./Webpage/AuthForm";
 import Profile from "./Webpage/Profile";
 import Home from "./Webpage/Home";
 import Userlist from "./Webpage/Userlist";
+import Mapa from "./Webpage/map";
 
 import "./styles/main.scss";
 
@@ -68,6 +69,7 @@ function App() {
                 <Route path="/" element={<Home currentUser={currentUser} />} />
                 <Route path="/favourites" element={<Favourite />} />
                 <Route path="/userlist" element={<Userlist />} />
+                <Route path="/map" element={<Mapa />} />
                 <Route path="/profile" element={<Profile currentUser={currentUser} />} />
                 <Route path="/auth" element={<AuthForm setUser={(u) => { setCurrentUser(u); localStorage.setItem('currentUser', JSON.stringify(u)); }} showToast={showToast} />} />
             </Routes>
