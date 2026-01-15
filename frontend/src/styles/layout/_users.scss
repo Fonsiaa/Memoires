@@ -47,7 +47,7 @@ html, body {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(140, 126, 126, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,7 +60,11 @@ html, body {
     width: 400px;
     text-align: center;
 
-    h3 { margin-bottom: 1rem; color: red; }
+    h3,p { 
+        margin-bottom: 1rem; 
+        color: $dark-brown; 
+    }
+
     input {
         width: 100%;
         padding: 0.8rem;

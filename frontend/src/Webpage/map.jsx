@@ -19,16 +19,25 @@ export default function MapApp() {
             renderWorldCopies: false,
         });
 
+        const resizer = new ResizeObserver(() => {
+            if (map.current) {
+                map.current.resize();
+            }
+        });
+
+        resizer.observe(mapContainer.current);
+
         map.current.on('click', async (e) => {
+            if (map.current.isMoving()) return;
+
             const { lng, lat } = e.lngLat;
-            
+
             try {
                 // Get the Country Name
                 const countryRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`);
                 const countryData = await countryRes.json();
                 const countryName = countryData.address?.country || "Unknown Location";
 
-                // Overpass API Query for real destinations
                 const overpassQuery = `
                     [out:json][timeout:25];
                     node["tourism"](around:50000, ${lat}, ${lng});
@@ -38,12 +47,14 @@ export default function MapApp() {
                 const destinationsData = await destinationsRes.json();
 
                 const realDestinations = destinationsData.elements
-                    .map(el => el.tags.name)
+                    .map(el => {
+                        return el.tags["name:en"] || el.tags.name;
+                    })
                     .filter(name => name !== undefined);
 
                 const finalDestinations = realDestinations.length > 0 
                     ? realDestinations 
-                    : ["Local Landmark", "Scenic Viewpoint", "City Center"];
+                    : ["Local Landmark", "Scenic Viewpoint", "Park"];
 
                 setLocationData({
                     country: countryName,
@@ -75,7 +86,7 @@ export default function MapApp() {
                         </ul>
                     </div>
                 ) : (
-                    <p className="hint">Click anywhere on the map!</p>
+                    <p className="hint">Click the Map!</p>
                 )}
             </div>
             <div ref={mapContainer} className="map-view" />

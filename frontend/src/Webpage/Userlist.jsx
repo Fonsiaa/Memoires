@@ -20,18 +20,23 @@ const UserList = () => {
         setShowModal(true);
     };
 
+    const [confirmText, setConfirmText] = useState("");
+
     const handleDelete = async () => {
+        if (confirmText !== "DELETE") {
+            alert("Please type 'DELETE' exactly to proceed.");
+            return;
+        }
+
         try {
-            await axios.post(`http://localhost:2824/api/users/delete-confirm/${selectedUserId}`, {
-                password: confirmPassword
-            });
-            
+            await axios.delete(`http://localhost:2824/api/users/${selectedUserId}`);
+
             setUsers(users.filter(u => u._id !== selectedUserId));
             setShowModal(false);
-            setConfirmPassword("");
-            alert("Account deleted.");
+            setConfirmText(""); // Clear input
+            alert("Account successfully deleted.");
         } catch (err) {
-            alert(err.response?.data?.message || "Incorrect password");
+            alert("Error deleting account: " + (err.response?.data?.message || "Server error"));
         }
     };
 
@@ -53,16 +58,26 @@ const UserList = () => {
                 <div className="modal-overlay">
                     <div className="modal-content">
                         <h3>Confirm Deletion</h3>
-                        <p>Please enter your password to confirm you want to delete this account.</p>
+                        <p>This action is permanent. Please type <strong>DELETE</strong> to confirm.</p>
                         <input 
-                            type="password" 
-                            placeholder="Enter password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            type="text" 
+                            placeholder="Type DELETE here"
+                            value={confirmText}
+                            onChange={(e) => setConfirmText(e.target.value)}
+                            className={confirmText === "DELETE" ? "input-valid" : ""}
                         />
                         <div className="modal-actions">
-                            <button className="btn-cancel" onClick={() => setShowModal(false)}>Cancel</button>
-                            <button className="btn-confirm" onClick={handleDelete}>Confirm Delete</button>
+                            <button className="btn-cancel" onClick={() => { setShowModal(false); setConfirmText(""); }}>
+                                Cancel
+                            </button>
+                            <button 
+                                className="btn-confirm" 
+                                onClick={handleDelete}
+                                disabled={confirmText !== "DELETE"} // Disables button until text matches
+                                style={{ opacity: confirmText === "DELETE" ? 1 : 0.5 }}
+                            >
+                                Confirm Delete
+                            </button>
                         </div>
                     </div>
                 </div>
