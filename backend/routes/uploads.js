@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit
+const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } }); 
 
 // POST /api/upload - form field: file
 router.post('/', upload.single('file'), (req, res) => {

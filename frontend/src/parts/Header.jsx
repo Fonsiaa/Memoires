@@ -101,12 +101,25 @@ function Navbar() {
 
   // Handle logout
   const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem('currentUser');
-    try {
-      window.dispatchEvent(new Event('userUpdated'));
-    } catch (e) {}
-    setOpen(false);
+    // Call backend logout
+    fetch('http://localhost:2824/auth/logout', {
+      credentials: 'include' // Include cookies for session
+    })
+    .then(() => {
+      setUser(null);
+      localStorage.removeItem('currentUser');
+      try {
+        window.dispatchEvent(new Event('userUpdated'));
+      } catch (e) {}
+      setOpen(false);
+    })
+    .catch(err => {
+      console.error('Logout error:', err);
+      // Still clear local state even if backend call fails
+      setUser(null);
+      localStorage.removeItem('currentUser');
+      setOpen(false);
+    });
   };
 
   // Close dropdowns when clicking outside
@@ -299,11 +312,11 @@ function Navbar() {
               }
             }}
           >
-            Admin
+            Setting
           </NavLink>
 
           <ul className={`dropdown ${open ? 'open' : ''}`} role="menu" aria-label="Admin menu">
-            <li role="none"><NavLink role="menuitem" to="/dashbd" className="nav-link" onClick={() => setOpen(false)}>Dashboard</NavLink></li>
+            <li role="none"><NavLink role="menuitem" to="/userlist" className="nav-link" onClick={() => setOpen(false)}>Admin</NavLink></li>
             <li role="none">
               {user ? (
                 <button

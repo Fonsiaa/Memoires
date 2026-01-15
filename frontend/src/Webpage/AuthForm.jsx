@@ -210,28 +210,7 @@ export function AuthForm({ setUser, showToast }) {
 
                 {/* Right side - social signup */}
                 <div className="auth-right">
-                    <div className="scenic" aria-hidden="true" />
-                    <div className="signup-panel">
-                        <h3 className="title">Sign Up</h3>
-                        <p className="subtitle">Using your social media account</p>
-
-                        <div className="social-row">
-                            <button 
-                                type="button" 
-                                className="social gmail" 
-                                onClick={() => { window.location.href = 'http://localhost:2824/auth/google'; }}
-                                disabled={isLoading}
-                            >
-                                <span className="s-icon">G</span>
-                                <span>Gmail</span>
-                            </button>
-                        </div>
-
-                        <label className="terms">
-                            <input type="checkbox" disabled={isLoading} />
-                            <span className="terms-text">By signing up, I agree with terms and conditions</span>
-                        </label>
-                    </div>
+                    <img src="" alt="" />
                 </div>
             </div>
 

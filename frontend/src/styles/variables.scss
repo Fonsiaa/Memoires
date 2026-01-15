@@ -1,6 +1,10 @@
 //importing fonts
 @import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap"); 
+
+html {
+    background: #ac8764;
+}
 
 $font: "Coiny";
 $text: "Fuzzy Bubbles";

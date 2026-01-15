@@ -1,2 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");/*# sourceMappingURL=variables.css.map */
+@import url("https://fonts.googleapis.com/css2?family=Coiny&display=swap");
+html {
+  background: #ac8764;
+}/*# sourceMappingURL=variables.css.map */

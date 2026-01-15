@@ -4,13 +4,10 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import users from './routes/users.js';
 
-//for the google bakckend
-import session from 'express-session';
-import passport from 'passport';
-
 dotenv.config();
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
@@ -24,7 +21,7 @@ const connectDB = async() => {
         console.log('✅ MongoDB Connected...');
     } catch (err) {
         console.error('❌ Error connecting to MongoDB:', err.message);
-        process.exit(1); // Exit if DB connection fails
+        process.exit(1);
     }
 };
 

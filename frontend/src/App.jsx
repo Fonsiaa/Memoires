@@ -6,7 +6,7 @@ import Favourite from "./Webpage/Favourite";
 import { AuthForm } from "./Webpage/AuthForm";
 import Profile from "./Webpage/Profile";
 import Home from "./Webpage/Home";
-import Dashboard from "./Webpage/Dashboard";
+import Userlist from "./Webpage/Userlist";
 
 import "./styles/main.scss";
 
@@ -28,6 +28,38 @@ function App() {
         setToast({ message, type });
     }
 
+    // Check for OAuth redirect and fetch user data
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const authStatus = urlParams.get('auth');
+        
+        if (authStatus === 'success') {
+            // Clear the URL parameter
+            window.history.replaceState({}, document.title, window.location.pathname);
+            
+            // Fetch current user from backend
+            fetch('http://localhost:2824/auth/success', {
+                credentials: 'include' // Include cookies for session
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success && data.user) {
+                    setCurrentUser(data.user);
+                    localStorage.setItem('currentUser', JSON.stringify(data.user));
+                    showToast('Successfully logged in with Google!', 'success');
+                }
+            })
+            .catch(err => {
+                console.error('Error fetching user after OAuth:', err);
+                showToast('Login failed', 'error');
+            });
+        } else if (authStatus === 'failed') {
+            // Clear the URL parameter
+            window.history.replaceState({}, document.title, window.location.pathname);
+            showToast('Google login failed', 'error');
+        }
+    }, []);
+
     return (
         <>
         <Router>
@@ -35,7 +67,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home currentUser={currentUser} />} />
                 <Route path="/favourites" element={<Favourite />} />
-                <Route path="/dashbd" element={<Dashboard />} />
+                <Route path="/userlist" element={<Userlist />} />
                 <Route path="/profile" element={<Profile currentUser={currentUser} />} />
                 <Route path="/auth" element={<AuthForm setUser={(u) => { setCurrentUser(u); localStorage.setItem('currentUser', JSON.stringify(u)); }} showToast={showToast} />} />
             </Routes>
